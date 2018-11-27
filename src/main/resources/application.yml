@@ -1,0 +1,38 @@
+
+#server:
+#  port: 8443
+#  ssl:
+#    key-store: keystore.p12
+#    key-store-password: password
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+
+spring:
+  mvc: 
+    view: 
+      prefix: /WEB-INF/
+      suffix: .jsp
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/long_tail
+    username: root
+    password: MPay@USJ21
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 368598484251-q9ficvclksrbov0f7gkm2sr358ov6739.apps.googleusercontent.com
+            client-secret: NCTZdq2ErsWm9rvyRUR5GFO8
+          facebook:
+            client-id: 367514827141953
+            client-secret: 94dc2671ed6bf9cc0b067234a5fbd170
+              
+    

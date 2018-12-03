@@ -101,7 +101,8 @@ public class InvestorServiceImplement implements InvestorService{
 			return null;
 		}
 			
-		return franchiseRepository.findAllByFranchiseTypeAndOrderByInvestorInterestedDesc(formData.getInterestedFranchise(), pageable);
+		return franchiseRepository.findByFranchiseTypeOrderByInvestorInterestedDesc(formData.getInterestedFranchise(), pageable);
+//		return franchiseRepository.findByFranchiseType(formData.getInterestedFranchise());
 	}
 	
 	@Override
@@ -111,7 +112,7 @@ public class InvestorServiceImplement implements InvestorService{
 			Logger.writeActivity("could not find category", foldername);
 			return null;
 		}
-		return franchiseRepository.findAllByCategoryAndOrderByInvestorInterestedDesc(category, pageable);
+		return franchiseRepository.findAllByCategory_IdOrderByInvestorInterestedDesc(category.getId(), pageable);
 	}
 
 	@Override
@@ -137,7 +138,7 @@ public class InvestorServiceImplement implements InvestorService{
 			return null;
 		}
 		
-		return franchiseRepository.findTop5ByFranchiseTypeAndOrderByInvestorInterestedDesc(formData.getInterestedFranchise());
+		return franchiseRepository.findTop5ByFranchiseTypeOrderByInvestorInterestedDesc(formData.getInterestedFranchise());
 	}
 
 	@Override

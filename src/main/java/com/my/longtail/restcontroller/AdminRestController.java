@@ -104,13 +104,13 @@ public class AdminRestController {
 			if(jObject.has("category_id"))
 				category = adminService.getCategory(Long.valueOf(jObject.getString("category_id")));
 			
-			if(jObject.getString("franchise_type").equals("single"))
+			if(jObject.getInt("type") == 0)
 				franchise.setFranchiseType(FranchiseType.SINGLE);
-			else if(jObject.getString("franchise_type").equals("area_master"))
+			else if(jObject.getInt("type") == 1)
 				franchise.setFranchiseType(FranchiseType.AREA_MASTER);
-			else if(jObject.getString("franchise_type").equals("country_master"))
+			else if(jObject.getInt("type") == 2)
 				franchise.setFranchiseType(FranchiseType.COUNTRY_MASTER);
-			else if(jObject.getString("franchise_type").equals("multiple"))
+			else if(jObject.getInt("type") == 3)
 				franchise.setFranchiseType(FranchiseType.MULTIPLE);
 			
 			franchise.setCategory(category);
@@ -125,7 +125,7 @@ public class AdminRestController {
 				franchise.setCompanyName(jObject.getString("company_name"));
 			if(jObject.has("description"))
 				franchise.setDescription(jObject.getString("description"));
-			if(jObject.has("franchise_logo"))
+			if(jObject.has("logo_img"))
 				franchise.setFranchiseLogoImg(UserUtil.saveImageFile(jObject.getString("franchise_logo"), null, uploadPath));
 			if(jObject.has("name"))
 				franchise.setName(jObject.getString("name"));
@@ -137,17 +137,17 @@ public class AdminRestController {
 			
 			if(franchise != null) {
 				if(indicator == 1)
-					jObjectResult.put("data", "Franchise Successfully Added.");
+					jObjectResult.put("msg", "Franchise Successfully Added.");
 				else
-					jObjectResult.put("data", "Franchise Successfully Update");
+					jObjectResult.put("msg", "Franchise Successfully Update");
 				
 				jObjectResult.put("franchise_id", franchise.getId());
 				Logger.writeActivity("Franchise successfully created", foldername);
 			}else {
 				if(indicator == 1)
-					jObjectResult.put("data", "Franchise Failed To Create");
+					jObjectResult.put("error", "Franchise Failed To Create, Please make sure all field are entered.");
 				else
-					jObjectResult.put("data", "Franchise Failed To Update");
+					jObjectResult.put("error", "Franchise Failed To Update, Please make sure all field are entered.");
 				Logger.writeActivity("Franchise fail to save", foldername);
 			}
 		}catch(Exception e) {
@@ -170,10 +170,10 @@ public class AdminRestController {
 		
 		try {
 			if(adminService.removeFranchise(franchiseId)) {
-				jObjectResult.put("data", "Franchise has been removed.");
+				jObjectResult.put("msg", "Franchise has been removed.");
 				Logger.writeActivity("franchise successfully removed", foldername);
 			}else {
-				jObjectResult.put("data", "Franchise fail to be remove.");
+				jObjectResult.put("msg", "Franchise fail to be remove.");
 				Logger.writeActivity("franchise fail to save", foldername);
 			}
 		}catch (Exception e) {

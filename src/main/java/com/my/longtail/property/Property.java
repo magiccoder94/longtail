@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 public class Property {
 
-	private static ResourceBundle res = ResourceBundle.getBundle("com.general.util.property/GeneralProperty");
+	private static ResourceBundle res = ResourceBundle.getBundle("com.my.longtail.property/GeneralProperty");
 
 	private static String PROJECT_LOG_PATH = res.getString("PROJECT_LOG_PATH");
 

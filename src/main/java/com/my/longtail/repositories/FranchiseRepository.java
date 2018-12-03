@@ -16,11 +16,11 @@ public interface FranchiseRepository extends JpaRepository<Franchise, Long>{
 	//top 5 popular list
 	List<Franchise> findTop5ByOrderByInvestorInterestedDesc();
 	//top 5 by franchise type
-	List<Franchise> findTop5ByFranchiseTypeAndOrderByInvestorInterestedDesc(FranchiseType franchiseType);
+	List<Franchise> findTop5ByFranchiseTypeOrderByInvestorInterestedDesc(FranchiseType franchiseType);
 	//top 5 latest list
 	List<Franchise> findAllTop5ByOrderByDateCreatedAsc();
 	//top 5 by recommended latest list
-	List<Franchise> findTop5ByCategoryOrderByDateCreatedAsc(Category category);
+	List<Franchise> findTop5ByCategory_IdOrderByDateCreatedAsc(long categoryId);
 	//all latest list non-pageable
 	List<Franchise> findAllByOrderByDateCreatedAsc();
 	
@@ -29,8 +29,8 @@ public interface FranchiseRepository extends JpaRepository<Franchise, Long>{
 	//popular list
 	Page<Franchise> findAllByOrderByInvestorInterestedDesc(Pageable pageable);
 	//by franchise type
-	Page<Franchise> findAllByFranchiseTypeAndOrderByInvestorInterestedDesc(FranchiseType franchiseType, Pageable pageable);
+	Page<Franchise> findByFranchiseTypeOrderByInvestorInterestedDesc(FranchiseType franchiseType, Pageable pageable);
 	//by category for recommended list
-	Page<Franchise> findAllByCategoryAndOrderByInvestorInterestedDesc(Category category, Pageable pageable);
+	Page<Franchise> findAllByCategory_IdOrderByInvestorInterestedDesc(long categoryId, Pageable pageable);
 	
 }

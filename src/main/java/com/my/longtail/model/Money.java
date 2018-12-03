@@ -5,6 +5,7 @@ import java.util.Currency;
 
 import javax.persistence.Embeddable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Embeddable
@@ -16,20 +17,20 @@ public class Money {
 	@JsonProperty("currency_code")
 	private String currencyCode;
 	
-	
 	public Money() {}
-	
-	public Money(BigDecimal amount, Currency currencyCode) {
+
+	public Money(BigDecimal amount, Currency currency) {
 		this.amount = amount;
-		this.currencyCode = currencyCode.getCurrencyCode();
+		this.currencyCode = currency.getCurrencyCode();
 	}
 
 	public BigDecimal getAmount() {
 		return amount;
 	}
-
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	
+	@JsonIgnore
+	public Currency getCurrency() {
+		return Currency.getInstance(currencyCode);
 	}
 
 	public String getCurrencyCode() {
@@ -39,5 +40,10 @@ public class Money {
 	public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
 	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+	
 	
 }

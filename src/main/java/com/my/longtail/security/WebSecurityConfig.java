@@ -11,22 +11,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
-@Order(1)
+@Order(2)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
-	@Autowired
-	private DataSource dataSource;
 	
 	@Override
 	public void configure(final WebSecurity web) throws Exception {
 		web.ignoring().antMatchers("/assets/**");
 		web.ignoring().antMatchers("/render/**");
+		web.ignoring().antMatchers("/sample/**");
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.anyRequest().authenticated()
+				.antMatchers("/investor/**").permitAll()
 			.and()
 				.oauth2Login()
 				.defaultSuccessUrl("/investor/loginSuccess")

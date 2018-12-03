@@ -64,13 +64,13 @@ public class ApplicantFormPOJO {
 	@JsonProperty("capitalisation")
 	@AttributeOverrides({
 		@AttributeOverride(name = "amount", column = @Column(name = "capital_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
-		@AttributeOverride(name = "currency", column = @Column(name = "capital_currency", columnDefinition = "CHAR(3)", nullable = true))
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "capital_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money capitalisation;
 	@JsonProperty("pre_year_sales_turnover")
 	@AttributeOverrides({
 		@AttributeOverride(name = "amount", column = @Column(name = "pre_year_sales_turnover_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
-		@AttributeOverride(name = "currency", column = @Column(name = "pre_year_sales_turnover_currency", columnDefinition = "CHAR(3)", nullable = true))
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "pre_year_sales_turnover_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money preYearSalesTurnOver;
 	@Column(name = "pre_year_sales_turnover_param1", columnDefinition = "VARCHAR(10)", nullable = true)
@@ -94,7 +94,7 @@ public class ApplicantFormPOJO {
 	@JsonProperty("fund_available_invest")
 	@AttributeOverrides({
 		@AttributeOverride(name = "amount", column = @Column(name = "fund_available_invest_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
-		@AttributeOverride(name = "currency", column = @Column(name = "fund_available_invest_currency", columnDefinition = "CHAR(3)", nullable = true))
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "fund_available_invest_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money fundAvailableInvest;
 	@Enumerated(EnumType.ORDINAL)
@@ -134,7 +134,7 @@ public class ApplicantFormPOJO {
 	@JsonProperty("monthly_rent")
 	@AttributeOverrides({
 		@AttributeOverride(name = "amount", column = @Column(name = "monthly_rent_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
-		@AttributeOverride(name = "currency", column = @Column(name = "monthly_rent_currency", columnDefinition = "CHAR(3)", nullable = true))
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "monthly_rent_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money monthlyRent;
 	@Column(name = "franchise_reason", columnDefinition = "VARCHAR(100)", nullable = true)

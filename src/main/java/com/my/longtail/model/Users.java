@@ -23,7 +23,7 @@ public class Users implements Serializable {
 	@Column(name = "last_name", columnDefinition = "VARCHAR(50)", nullable = true)
 	private String lastName;
 	
-	@Column(name = "username", columnDefinition = "VARCHAR(100", nullable = false)
+	@Column(name = "username", columnDefinition = "VARCHAR(100)", nullable = false)
 	private String username;
 	
 	@Column(name = "password", columnDefinition = "VARCHAR(20)", nullable = true)

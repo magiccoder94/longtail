@@ -27,8 +27,17 @@ public class Franchise {
 	@NotEmpty(message = "*Please provide name for company.")
 	private String companyName;
 	
-	@Column(name = "description", columnDefinition = "VARCHAR(250)", nullable = true)
-	private String description;
+	@Column(name = "criteria_franchisee", columnDefinition = "VARCHAR(250)", nullable = true)
+	private String franchiseeCriteria;
+	
+	@Column(name = "introduction_franchise", columnDefinition = "VARCHAR(250)", nullable = true)
+	private String introduction;
+	
+	@Column(name = "description_package", columnDefinition = "VARCHAR(250)", nullable = true)
+	private String descriptionPackage;
+	
+	@Column(name = "short_description", columnDefinition = "VARCHAR(100)", nullable = true)
+	private String shortDescription;
 	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "franchise_type", columnDefinition = "INT", nullable = false)
@@ -58,11 +67,20 @@ public class Franchise {
 	@Column(name = "investor_interested", columnDefinition = "INT", nullable = false)
 	private int investorInterested = 0;
 	
+//	@Column(name = "join_venture_term", columnDefinition = "")
+//	private String joinVentureTerm;
+	
+//	private String managementServiceFee;
+	
+//	private String financialReq;
+	
 	public Franchise() {}
 	
 	public Franchise merge(Franchise existing) {
 		existing.setName(this.getName());
-		existing.setDescription(this.getDescription());
+		existing.setDescriptionPackage(this.getDescriptionPackage());
+		existing.setFranchiseeCriteria(this.getFranchiseeCriteria());
+		existing.setIntroduction(this.getIntroduction());
 		existing.setCategory(this.getCategory());
 		existing.setCompanyName(this.getCompanyName());
 		existing.setFranchiseType(this.getFranchiseType());
@@ -88,14 +106,6 @@ public class Franchise {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public Date getDateCreated() {
@@ -160,6 +170,38 @@ public class Franchise {
 
 	public void setInvestorInterested(int investorInterested) {
 		this.investorInterested = investorInterested;
+	}
+
+	public String getShortDescription() {
+		return shortDescription;
+	}
+
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	}
+
+	public String getFranchiseeCriteria() {
+		return franchiseeCriteria;
+	}
+
+	public void setFranchiseeCriteria(String franchiseeCriteria) {
+		this.franchiseeCriteria = franchiseeCriteria;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public String getDescriptionPackage() {
+		return descriptionPackage;
+	}
+
+	public void setDescriptionPackage(String descriptionPackage) {
+		this.descriptionPackage = descriptionPackage;
 	}
 	
 }

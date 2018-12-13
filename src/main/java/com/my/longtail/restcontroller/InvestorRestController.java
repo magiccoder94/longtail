@@ -1,6 +1,7 @@
 package com.my.longtail.restcontroller;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
@@ -138,7 +139,7 @@ public class InvestorRestController {
 			formData.setFranchiseReason(jObject.getString("franchise_reason"));
 			Money fundsAvailableInvest = new Money(new BigDecimal(jObject.getString("source_fund_amount")), Currency.getInstance(jObject.getString("source_fund_currency")));
 			formData.setFundAvailableInvest(fundsAvailableInvest);
-			formData.setHomePhoneNo(jObject.getString("home_phone"));
+			formData.setOfficePhoneNo(jObject.getString("office_phone"));
 			formData.setIncorporationNumber(jObject.getString("incorporation_number"));
 			formData.setIncorporationRegistration(jObject.getString("incorporation_registration"));
 			formData.setInterestedFranchise(FranchiseType.fromValue(jObject.getInt("franchise_interested")));
@@ -167,10 +168,17 @@ public class InvestorRestController {
 			formData.setPreYearSalesTurnOverParam2(jObject.getString("param2"));
 			formData.setRelevantInfo(jObject.getString("relevant_info"));
 			formData.setResidentCountryAddress(jObject.getString("resident_country_address"));
+			formData.setCorpResidentAddress(jObject.getString("c_resident_address"));
 			formData.setSourceFunds(SourceFundType.fromValue(jObject.getInt("source_fund")));
 			formData.setYearBirth(jObject.getString("year_birth"));
 			formData.setYearIncorporated(jObject.getInt("year_incorporated"));
-
+			formData.setApplicantPosition(jObject.getString("applicant_position"));
+			
+			String stringFormDate = jObject.getString("form_date").replaceAll("T", " ").replaceAll("Z", "");
+			SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			Date formDate = dt.parse(stringFormDate);
+			formData.setFormDate(formDate);
+			
 			if(indicator == 1) {
 				formData = investorService.saveApplicantForm(formData, username);
 				if(formData == null) {
@@ -193,6 +201,7 @@ public class InvestorRestController {
 		return jObjectResult.toString();
 	}
 	
+	//change
 	@RequestMapping(value = "/investorcontroller/set_interested/{id}", method = RequestMethod.POST)
 	private String setInterestedFranchise(@PathVariable long franchiseId, HttpServletRequest request, HttpServletResponse response) {
 		JSONObject jObjectResult = new JSONObject();
@@ -213,6 +222,7 @@ public class InvestorRestController {
 		return jObjectResult.toString();
 	}
 	
+	//change
 	@RequestMapping(value = "/investorcontroller/set_uninterested/{id}", method = RequestMethod.POST)
 	private String setUninterestedFranchise(@PathVariable long franchiseId) {
 		JSONObject jObjectResult = new JSONObject();
@@ -232,4 +242,5 @@ public class InvestorRestController {
 		}
 		return jObjectResult.toString();
 	}
+	
 }

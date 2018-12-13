@@ -71,7 +71,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
   <!-- Bootstrap DatetimePicker* -->
   <!-- daterangepicker -->
-  <script src="${pageContext.request.contextPath}/admin/plugins/daterangepicker/daterangepicker.js"></script>
+  <%-- <script src="${pageContext.request.contextPath}/admin/plugins/daterangepicker/daterangepicker.js"></script>
   <!-- datepicker -->
   <script src="${pageContext.request.contextPath}/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
   <!-- Bootstrap WYSIHTML5 -->
@@ -79,7 +79,7 @@
   <!-- Slimscroll -->
   <script src="${pageContext.request.contextPath}/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
-  <script src="${pageContext.request.contextPath}/admin/plugins/fastclick/fastclick.js"></script>
+  <script src="${pageContext.request.contextPath}/admin/plugins/fastclick/fastclick.js"></script> --%>
   <!-- DataTable JS -->
   <script src="${pageContext.request.contextPath}/assets/dataTables-1.10.18/js/dataTables.bootstrap4.min.js"></script>
   

@@ -25,8 +25,8 @@ public class ApplicantFormPOJO {
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "marital_status", columnDefinition = "INT", nullable = false)
 	private MaritalStatus maritalStatus;
-	@Column(name = "home_ph", columnDefinition = "VARCHAR(20)", nullable = true)
-	private String homePhoneNo;
+	@Column(name = "office_ph", columnDefinition = "VARCHAR(20)", nullable = true)
+	private String officePhoneNo;
 	@Column(name = "mobile_ph", columnDefinition = "VARCHAR(20)", nullable = true)
 	private String mobilePhoneNo;
 	@Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = true)
@@ -151,6 +151,14 @@ public class ApplicantFormPOJO {
 	@Column(name = "updated_date", columnDefinition = "DATE", nullable = true)
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date updatedDate;
+	@Column(name = "corp_resident_address", columnDefinition = "VARCHAR(100)", nullable = true)
+	private String corpResidentAddress;
+	@Column(name = "applicant_position", columnDefinition = "VARCHAR(100)", nullable = true)
+	private String applicantPosition;
+	@JsonProperty("formDate")
+	@Column(name = "form_date", columnDefinition = "DATE", nullable = true)
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private Date formDate;
 
 	public ApplicantFormPOJO() {}
 	
@@ -177,7 +185,7 @@ public class ApplicantFormPOJO {
 		existing.setFranchisePeriod(this.getFranchisePeriod());
 		existing.setFranchiseReason(this.getFranchiseReason());
 		existing.setFundAvailableInvest(this.getFundAvailableInvest());
-		existing.setHomePhoneNo(this.getHomePhoneNo());
+		existing.setOfficePhoneNo(this.getOfficePhoneNo());
 		existing.setIncorporationNumber(this.getIncorporationNumber());
 		existing.setIncorporationRegistration(this.getIncorporationRegistration());
 		existing.setInterestedFranchise(this.getInterestedFranchise());
@@ -207,6 +215,7 @@ public class ApplicantFormPOJO {
 		existing.setSourceFunds(this.getSourceFunds());
 		existing.setYearBirth(this.getYearBirth());
 		existing.setYearIncorporated(this.getYearIncorporated());
+		existing.setCorpResidentAddress(this.getCorpResidentAddress());
 		
 		return existing;
 	}
@@ -251,12 +260,12 @@ public class ApplicantFormPOJO {
 		this.maritalStatus = maritalStatus;
 	}
 
-	public String getHomePhoneNo() {
-		return homePhoneNo;
+	public String getOfficePhoneNo() {
+		return officePhoneNo;
 	}
 
-	public void setHomePhoneNo(String homePhoneNo) {
-		this.homePhoneNo = homePhoneNo;
+	public void setOfficePhoneNo(String officePhoneNo) {
+		this.officePhoneNo = officePhoneNo;
 	}
 
 	public String getMobilePhoneNo() {
@@ -649,6 +658,30 @@ public class ApplicantFormPOJO {
 
 	public void setUpdatedDate(Date updatedDate) {
 		this.updatedDate = updatedDate;
+	}
+
+	public String getCorpResidentAddress() {
+		return corpResidentAddress;
+	}
+
+	public void setCorpResidentAddress(String corpResidentAddress) {
+		this.corpResidentAddress = corpResidentAddress;
+	}
+
+	public String getApplicantPosition() {
+		return applicantPosition;
+	}
+
+	public void setApplicantPosition(String applicantPosition) {
+		this.applicantPosition = applicantPosition;
+	}
+
+	public Date getFormDate() {
+		return formDate;
+	}
+
+	public void setFormDate(Date formDate) {
+		this.formDate = formDate;
 	}
 	
 }

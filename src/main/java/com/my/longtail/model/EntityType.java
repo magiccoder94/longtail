@@ -5,12 +5,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum EntityType {
 	
-	SOLE_PROPRIETORSHIP(0),
-	GENERAL_PARTNERSHIP(1),
-	LIMITED_PARTNERSHIP(2),
-	LIMITED_LIABILITY_COMPANY(3),
-	C_CORPORATION(4),
-	S_CORPORATION(5);
+	PRIVATE_LIMITED(0),
+	PUBLIC(1),
+	PARTNERSHIP(2),
+	SOLE_PROPRIETORSHIP(3),
+	OTHERS(4);
 	
 	private final int value;
 	
@@ -21,18 +20,16 @@ public enum EntityType {
 	@JsonCreator
 	public static EntityType fromValue(int value) {
 		switch(value) {
+		case 0:
+			return PRIVATE_LIMITED;
 		case 1:
-			return SOLE_PROPRIETORSHIP;
+			return PUBLIC;
 		case 2:
-			return GENERAL_PARTNERSHIP;
+			return PARTNERSHIP;
 		case 3:
-			return LIMITED_PARTNERSHIP;
+			return SOLE_PROPRIETORSHIP;
 		case 4:
-			return LIMITED_LIABILITY_COMPANY;
-		case 5:
-			return C_CORPORATION;
-		case 6:
-			return S_CORPORATION;
+			return OTHERS;
 		default:
 			return null;
 		}

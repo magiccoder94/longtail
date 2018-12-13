@@ -51,7 +51,9 @@ public class AdminRestController {
 				jObject.put("company_name", franchise.getCompanyName());
 				jObject.put("date_created", franchise.getDateCreated().toString().replace(" ", "T"));
 				jObject.put("date_updated", franchise.getDateUpdated().toString().replace(" ", "T"));
-				jObject.put("description", franchise.getDescription());
+				jObject.put("description", franchise.getDescriptionPackage());
+				jObject.put("introduction", franchise.getIntroduction());
+				jObject.put("franchisee_criteria", franchise.getFranchiseeCriteria());
 				jObject.put("name", franchise.getName());
 				jObject.put("img_url", franchise.getFranchiseLogoImg());
 				jObject.put("category_id", franchise.getCategory().getId());
@@ -123,8 +125,14 @@ public class AdminRestController {
 			
 			if(jObject.has("company_name"))
 				franchise.setCompanyName(jObject.getString("company_name"));
-			if(jObject.has("description"))
-				franchise.setDescription(jObject.getString("description"));
+			if(jObject.has("description_package"))
+				franchise.setDescriptionPackage(jObject.getString("description_package"));
+			if(jObject.has("short_description"))
+				franchise.setShortDescription(jObject.getString("short_description"));
+			if(jObject.has("introduction"))
+				franchise.setIntroduction(jObject.getString("introduction"));
+			if(jObject.has("franchisee_criteria"))
+				franchise.setFranchiseeCriteria(jObject.getString("franchisee_criteria"));
 			if(jObject.has("logo_img"))
 				franchise.setFranchiseLogoImg(UserUtil.saveImageFile(jObject.getString("franchise_logo"), null, uploadPath));
 			if(jObject.has("name"))

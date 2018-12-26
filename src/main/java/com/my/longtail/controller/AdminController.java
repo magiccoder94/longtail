@@ -30,7 +30,7 @@ public class AdminController {
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ModelAndView welcome_admin(Authentication authentication) {
 		ModelAndView model = new ModelAndView();
-		model.setViewName("/admin/welcome");
+		model.setViewName("/admin/home");
 		return model;
 	}
 	

@@ -64,8 +64,15 @@ public class Franchise {
 	@Column(name = "franchise_logo", columnDefinition = "VARCHAR(250)", nullable = true)
 	private String franchiseLogoImg;
 	
-	@Column(name = "investor_interested", columnDefinition = "INT", nullable = false)
-	private int investorInterested = 0;
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "franchise_status", columnDefinition = "INT", nullable = false)
+	private FranchiseStatus franchiseStatus;
+	
+	@Column(name = "management_participant_needed", columnDefinition = "INT", nullable = false)
+	private int managementParticipantNeeded;
+	
+	@Column(name = "invest_participant_needed", columnDefinition = "INT", nullable = false)
+	private int investParticipantNeeded;
 	
 //	@Column(name = "join_venture_term", columnDefinition = "")
 //	private String joinVentureTerm;
@@ -85,7 +92,6 @@ public class Franchise {
 		existing.setCompanyName(this.getCompanyName());
 		existing.setFranchiseType(this.getFranchiseType());
 		existing.setDateUpdated(new Date());
-		existing.setInvestorInterested(this.getInvestorInterested());
 		if(!this.getFranchiseLogoImg().isEmpty())
 			existing.setFranchiseLogoImg(this.getFranchiseLogoImg());
 		
@@ -164,14 +170,6 @@ public class Franchise {
 		this.franchiseLogoImg = franchiseLogoImg;
 	}
 
-	public int getInvestorInterested() {
-		return investorInterested;
-	}
-
-	public void setInvestorInterested(int investorInterested) {
-		this.investorInterested = investorInterested;
-	}
-
 	public String getShortDescription() {
 		return shortDescription;
 	}
@@ -202,6 +200,30 @@ public class Franchise {
 
 	public void setDescriptionPackage(String descriptionPackage) {
 		this.descriptionPackage = descriptionPackage;
+	}
+
+	public FranchiseStatus getFranchiseStatus() {
+		return franchiseStatus;
+	}
+
+	public void setFranchiseStatus(FranchiseStatus franchiseStatus) {
+		this.franchiseStatus = franchiseStatus;
+	}
+
+	public int getManagementParticipantNeeded() {
+		return managementParticipantNeeded;
+	}
+
+	public void setManagementParticipantNeeded(int managementParticipantNeeded) {
+		this.managementParticipantNeeded = managementParticipantNeeded;
+	}
+
+	public int getInvestParticipantNeeded() {
+		return investParticipantNeeded;
+	}
+
+	public void setInvestParticipantNeeded(int investParticipantNeeded) {
+		this.investParticipantNeeded = investParticipantNeeded;
 	}
 	
 }

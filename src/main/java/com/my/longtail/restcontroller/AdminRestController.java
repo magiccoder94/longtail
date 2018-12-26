@@ -25,6 +25,7 @@ import com.my.longtail.property.Property;
 import com.my.longtail.util.UserUtil;
 
 @RestController
+@RequestMapping(value = "/admincontroller")
 public class AdminRestController {
 	
 	@Autowired
@@ -35,7 +36,7 @@ public class AdminRestController {
 	
 	final static String foldername = Property.getWEBPORTAL_FOLDER_NAME();
 	
-	@RequestMapping(value = "/admincontroller/get_franchise_list", method = RequestMethod.GET)
+	@RequestMapping(value = "/get_franchise_list", method = RequestMethod.GET)
 	private String getFranchiseList(){
 		JSONObject jObjectResult = new JSONObject();
 		JSONArray JARY = new JSONArray();
@@ -70,7 +71,7 @@ public class AdminRestController {
 		return jObjectResult.toString();
 	}
 	
-	@RequestMapping(value = "/admincontroller/get_category_list", method = RequestMethod.GET)
+	@RequestMapping(value = "/get_category_list", method = RequestMethod.GET)
 	private String getCategories() {
 		JSONObject jObjectResult = new JSONObject();
 		JSONArray JARY = new JSONArray();
@@ -92,7 +93,7 @@ public class AdminRestController {
 		return jObjectResult.toString();
 	}
 	
-	@RequestMapping(value = "/admincontroller/save_franchise", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/save_franchise", method = {RequestMethod.GET, RequestMethod.POST})
 	private String saveFranchise(@RequestBody String formfield, HttpServletResponse response, HttpServletRequest request) {
 		JSONObject jObjectResult = new JSONObject();
 		Franchise franchise = new Franchise();
@@ -172,7 +173,7 @@ public class AdminRestController {
 //		return null;
 //	}
 	
-	@RequestMapping(value = "/admincontroller/remove_franchise/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/remove_franchise/{id}", method = {RequestMethod.GET, RequestMethod.POST})
 	private String removeFranchise(@PathVariable int franchiseId) {
 		JSONObject jObjectResult = new JSONObject();
 		
@@ -189,5 +190,15 @@ public class AdminRestController {
 			Logger.writeError(e, "Exception: ", foldername);
 		}
 		return jObjectResult.toString();
+	}
+	
+	@RequestMapping(value = "/get_holding_list", method = RequestMethod.GET)
+	public String getHoldingList() {
+		return null;
+	}
+	
+	@RequestMapping(value = "/get_franchise_with_participant", method = RequestMethod.GET)
+	public String getFranchiseWithParticipant() {
+		return null;
 	}
 }

@@ -18,6 +18,12 @@
 		margin-right: 1%;
 		margin-left: 1%;
 	}
+	
+	.container-custom {
+		max-width: 95%; 
+		padding-left: 0px; 
+		padding-right: 0px;
+	}
 </style>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=0.65">

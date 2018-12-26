@@ -2,8 +2,13 @@
 <html>
 <head>
 	<title>Long Tail</title>
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
+	<!-- Bootstrap 4 --> 
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
 	<style>
+		html, body{
+    		background-color: black;
+		}
+		
 		.form-signin input[type="text"] {
 			margin-bottom: 5px;
 			border-bottom-left-radius: 0;
@@ -34,7 +39,7 @@
 			margin: auto;
 		}
 		
-		.panel {
+		.card {
 			margin-bottom: 20px;
 			background-color: rgba(255,255,255,.15);
 			border: 1px solid transparent;
@@ -55,15 +60,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <body>
 	<div class="container">
-		<div class="row" style="padding-top: 100px;">
+		<div class="row align-items-center justify-content-center" style="padding-top: 100px;">
 			<div class="col-md-4 col-md-offset-4">
-				<div class="panel panel-transparent">
-					<div class="panel-heading">
+				<div class="card card-transparent">
+					<div class="card-heading">
 						<div class="row-fluid user-row">
 							<!-- img here -->
 						</div>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 						<p style="color:red;">${exceptionMsg}</p>
 						<form action="${pageContext.request.contextPath}/admin/signin" method="POST" accept-charset="UTF-8" role="form" class="form-signin">
 							<fieldset>

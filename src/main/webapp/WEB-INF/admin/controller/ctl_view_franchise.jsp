@@ -2,13 +2,46 @@
 <script>
 	app.controller('ctl_view_franchise', function($scope, $http, $compile, $timeout){
 		$scope.modalType = '';
-		$scope.franchise.type = 0;
-		$scope.franchise.category = 0;
+		$scope.franchise = {};
+		
+		$scope.setModalType = function(action_type){
+			$scope.franchise.action = action_type;
+		}
+		
+		$('input[type=file]').change(function(event){
+			var element = event.target.id;
+			var reader = new FileReader();
+			var _URL = window.URL || window.webkitURL;
+			var file = this.files[0];
+			var check = fileCheck(file, element);
+			if(check == false){
+				return false;
+			}
+			reader.readAsDataURL(file);
+			reader.onload = function(){
+				if(element == "createLogo_img")
+					$('createLogo_imgBase64').val(reader.result);
+			}
+			reader.onerror = function(error){
+				
+			}
+		});
+		
+		function fileCheck(file, elementName){
+			var img;
+			if(file.type.indexOf("image") == -1){
+				alert("Invalid image file");
+				$('#' + elementName).wrap('<form>').closest('form').get(0).reset();
+				$('#' + elementName).unwrap();
+				return false;
+			}
+			//height and width checking not confirm yet
+		};
 		
 		$http.get("${pageContext.request.contextPath}/admincontroller/get_category_list")
 		.then(function(response){
 			$scope.listCategory = response.data;
-		});
+		}); 
 		
 		$scope.resetCreateFranchise = function(){
 			$scope.franchise.name = "";
@@ -19,7 +52,7 @@
 			
 			document.getElementById("createLogo_img").value = "";
 			document.getElementById("createLogo_imgBase64").value = "";
-		};
+		}; 
 		
 		$scope.submitCreateFranchise = function(){
 			if($scope.modalType =='create' && document.getElementById("createLogo_imgBase64").value == null ||
@@ -74,10 +107,12 @@
 					$('#create_franchise_modal').modal('toggle');
 				})
 			}
-		};
+		}; 
 		
 		$(document).ready(function(){
-			refreshTable();
+			$scope.franchise.type = '0';
+			$scope.franchise.category = '0';
+			refreshTable(); 
 		})
 		
 		function refreshTable(){
@@ -135,7 +170,7 @@
 				$('#create_franchise_modal').modal('show');
 			};
 			
-		};
+		}; 
 		
 		$scope.removeFranchise = function(id){
 			var confirmation = confirm("Confirm to remove franchise from list?");
@@ -157,7 +192,7 @@
 					}
 				})
 			}
-		}
+		} 
 	})
 </script>
 </html>

@@ -28,17 +28,17 @@
 							<div class="row">
 								<div class="col-8 col-sm-8 form-group">
 									<label for="name">Name:</label>
-									<input type="text" class="form-control" id="name" ng-model="applicant.name" required/>
+									<input type="text" class="form-control" id="name" ng-model="applicant.name" />
 								</div>
 								<div class="col-4 col-sm-4 form-group">
 									<label for="yearBirth">Year of Birth:</label>
-									<input type="number" class="form-control" id="yearBirth" ng-model="applicant.year_birth" required/>
+									<input type="number" class="form-control" id="yearBirth" ng-model="applicant.year_birth" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-8 col-sm-8 form-group">
 									<label for="nationality">Nationality:</label>
-									<input type="text" class="form-control" id="nationality" ng-model="applicant.nationality" required/>
+									<input type="text" class="form-control" id="nationality" ng-model="applicant.nationality" />
 								</div>
 								<div class="col-4 col-sm-4 form-group">
 									<label for="maritalStatus">Marital Status:</label>
@@ -53,17 +53,17 @@
 							<div class="row">
 								<div class="col-12 col-sm-6 form-group">
 									<label for="telephone">Mobile Number:</label>
-									<input type="text" class="form-control" id="mobilePhone" ng-model="applicant.mobile_number" required/>
+									<input type="text" class="form-control" id="mobilePhone" ng-model="applicant.mobile_number" />
 								</div>
 								<div class="col-12 col-sm-6 form-group">
 									<label for="officeNumber">Office Number:</label>
-									<input type="text" class="form-control" id="officePhone" ng-model="applicant.office_number" required/>
+									<input type="text" class="form-control" id="officePhone" ng-model="applicant.office_number" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-12 col-sm-6 form-group">
 									<label for="email">Email:</label>
-									<input type="text" class="form-control" id="email" ng-model="applicant.email" required/>
+									<input type="text" class="form-control" id="email" ng-model="applicant.email" />
 								</div>
 								<div class="col-12 col-sm-6 form-group">
 									<label for="fax">Fax:</label>
@@ -101,7 +101,7 @@
 							<div class="row">
 								<div class="col-12 col-sm-12 form-group">
 									<label for="companyName">Name of company / Business:</label>
-									<input type="text" class="form-control" ng-model="applicant.company_name" required/>
+									<input type="text" class="form-control" ng-model="applicant.company_name" />
 								</div>
 							</div>
 							<div class="row">
@@ -189,13 +189,13 @@
 							<div class="row">
 								<div class="col-12 col-sm-12 form-group">
 									<label>Name of the intended Managing Principal <i>(person who will manage the franchise)</i></label>
-									<input type="text" class="form-control" ng-model="applicant.name_managing_principal" required/>
+									<input type="text" class="form-control" ng-model="applicant.name_managing_principal" />
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-2 col-sm-2 form-group">
 									<label>Age:</label>
-									<input type="number" class="form-control" ng-model="applicant.mp_age" required/>
+									<input type="number" class="form-control" ng-model="applicant.mp_age" />
 								</div>
 								<div class="col-4 col-sm-4 form-group">
 									<label>Marital Status:</label>
@@ -224,7 +224,7 @@
 								<div class="col-8 col-sm-8 form-group">
 									<input type="hidden" class="form-control" ng-model="applicant.funds_available_currency" ng-init="applicant.funds_available_currency='USD'"/>
 									<label>Amount of funds available to invest in the business: US$</label>
-									<input type="number" class="form-control" ng-model="applicant.funds_available" required/>
+									<input type="number" class="form-control" ng-model="applicant.funds_available" />
 								</div>
 							</div>
 							<div class="row">
@@ -388,7 +388,7 @@
 									</div>
 									<div class="col-6 col-sm-6 form-group">
 										<label>Date:</label>
-										<input type="datetime-local" class="form-control" ng-model="applicant.form_date" ng-model-options="{timezone: 'UTC'}" required/>
+										<input type="datetime-local" class="form-control" ng-model="applicant.form_date" ng-model-options="{timezone: 'UTC'}"/>
 									</div>
 								</div>
 							</div>

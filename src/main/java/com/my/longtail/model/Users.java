@@ -54,6 +54,8 @@ public class Users implements Serializable {
 	@JoinColumn(name = "form_id", nullable = true)
 	private ApplicantFormPOJO formData;
 	
+//	private boolean management_term;
+	
 	//might need to put role for spring authentication
 	
 	public Users() {}

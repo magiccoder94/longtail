@@ -5,7 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum FranchiseStatus {
 	PARTICIPANT_NEEDED(0),
-	MAXIMUM_PARITICPANT_ACHIVE(1);
+	MAXIMUM_PARITICPANT_ACHIVE(1),
+	DISABLED(2);
 	
 	private final int value;
 	

@@ -42,9 +42,15 @@ public class Users implements Serializable {
 	@Column(name = "profile_image", columnDefinition = "VARCHAR(250)", nullable = true)
 	private String profile_image;
 	
-	@ManyToMany(cascade = CascadeType.MERGE)
-	@JoinTable(name = "users_franchises_set", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "franchise_id"))
-	private Set<Franchise> franchises;
+//	@ManyToMany(cascade = CascadeType.MERGE)
+//	@JoinTable(name = "users_franchises_set", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "franchise_id"))
+//	private Set<Franchise> franchises;
+	
+	@OneToMany(mappedBy = "primaryKey.user")
+	private Set<Users_Franchises> userFranchise;
+	
+	@OneToMany(mappedBy = "primaryKey.user")
+	private Set<Users_ApplicantForms> userApplicantForm;
 	
 	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "account_type", columnDefinition = "INT", nullable = false)
@@ -53,6 +59,7 @@ public class Users implements Serializable {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "form_id", nullable = true)
 	private ApplicantFormPOJO formData;
+	
 	
 //	private boolean management_term;
 	
@@ -108,13 +115,13 @@ public class Users implements Serializable {
 		this.provider = provider;
 	}
 
-	public Set<Franchise> getFranchises() {
-		return franchises;
-	}
-
-	public void setFranchises(Set<Franchise> franchises) {
-		this.franchises = franchises;
-	}
+//	public Set<Franchise> getFranchises() {
+//		return franchises;
+//	}
+//
+//	public void setFranchises(Set<Franchise> franchises) {
+//		this.franchises = franchises;
+//	}
 
 	public String getProfile_image() {
 		return profile_image;
@@ -154,6 +161,14 @@ public class Users implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Set<Users_Franchises> getUserFranchise() {
+		return userFranchise;
+	}
+
+	public void setUserFranchise(Set<Users_Franchises> userFranchise) {
+		this.userFranchise = userFranchise;
 	}
 
 }

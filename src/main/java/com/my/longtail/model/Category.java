@@ -1,5 +1,7 @@
 package com.my.longtail.model;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +15,8 @@ public class Category {
 	
 	@Column(name = "name", nullable = true)
 	private String name;
+	
+	private Set<ApplicantFormPOJO> applicantForm;
 
 	public Category() {
 	}

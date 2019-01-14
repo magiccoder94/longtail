@@ -1,5 +1,7 @@
 package com.my.longtail.restcontroller;
 
+import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +23,7 @@ import com.my.longtail.logger.Logger;
 import com.my.longtail.model.Category;
 import com.my.longtail.model.Franchise;
 import com.my.longtail.model.FranchiseType;
+import com.my.longtail.model.Money;
 import com.my.longtail.property.Property;
 import com.my.longtail.util.UserUtil;
 
@@ -59,7 +62,11 @@ public class AdminRestController {
 				jObject.put("img_url", franchise.getFranchiseLogoImg());
 				jObject.put("category_id", franchise.getCategory().getId());
 				jObject.put("franchise_type", franchise.getFranchiseType());
-				jObject.put("user_interested", franchise.getInvestorInterested());
+				jObject.put("min_invest", franchise.getMinimumInvestment().getAmount());
+				jObject.put("max_invest", franchise.getMaximumInvestment().getAmount());
+				jObject.put("management_fee", franchise.getManagementServiceFee());
+				jObject.put("management_needed", franchise.getManagementParticipantNeeded());
+//				jObject.put("user_interested", franchise.getInvestorInterested());
 				
 				JARY.put(jObject);
 			}
@@ -124,20 +131,39 @@ public class AdminRestController {
 				franchise.setDateUpdated(new Date());
 			}
 			
-			if(jObject.has("company_name"))
-				franchise.setCompanyName(jObject.getString("company_name"));
-			if(jObject.has("description_package"))
-				franchise.setDescriptionPackage(jObject.getString("description_package"));
-			if(jObject.has("short_description"))
-				franchise.setShortDescription(jObject.getString("short_description"));
-			if(jObject.has("introduction"))
-				franchise.setIntroduction(jObject.getString("introduction"));
-			if(jObject.has("franchisee_criteria"))
-				franchise.setFranchiseeCriteria(jObject.getString("franchisee_criteria"));
-			if(jObject.has("logo_img"))
-				franchise.setFranchiseLogoImg(UserUtil.saveImageFile(jObject.getString("franchise_logo"), null, uploadPath));
-			if(jObject.has("name"))
-				franchise.setName(jObject.getString("name"));
+			if(!jObject.has("company_name"))
+				
+			if(!jObject.has("description_package"))
+				
+			if(!jObject.has("short_description"))
+				
+			if(!jObject.has("introduction"))
+				
+			if(!jObject.has("franchisee_criteria"))
+				
+			if(!jObject.has("logo_img"))
+				
+			if(!jObject.has("name"))
+				
+			if(!jObject.has("min_invest_amount"))
+				
+			if(!jObject.has("max_invest_amount"))
+			
+			if(!jObject.has("management_fee"))	
+				
+			if(!jObject.has("management_needed"))
+			
+			franchise.setCompanyName(jObject.getString("company_name"));
+			franchise.setDescriptionPackage(jObject.getString("description_package"));
+			franchise.setShortDescription(jObject.getString("short_description"));
+			franchise.setIntroduction(jObject.getString("introduction"));
+			franchise.setFranchiseeCriteria(jObject.getString("franchisee_criteria"));
+			franchise.setFranchiseLogoImg(UserUtil.saveImageFile(jObject.getString("franchise_logo"), null, uploadPath));
+			franchise.setName(jObject.getString("name"));
+			franchise.setMinimumInvestment(new Money(new BigDecimal(jObject.getString("min_invest_amount")), Currency.getInstance(jObject.getString("min_invest_currency"))));
+			franchise.setMaximumInvestment(new Money(new BigDecimal(jObject.getString("max_invest_amount")), Currency.getInstance(jObject.getString("max_invest_currency"))));
+			franchise.setManagementServiceFee(new Money(new BigDecimal(jObject.getString("management_fee")), Currency.getInstance(jObject.getString("management_currency"))));
+			franchise.setManagementParticipantNeeded(jObject.getInt("management_needed"));
 			
 			if(indicator == 1)
 				franchise = adminService.saveFranchise(franchise);
@@ -194,6 +220,7 @@ public class AdminRestController {
 	
 	@RequestMapping(value = "/get_holding_list", method = RequestMethod.GET)
 	public String getHoldingList() {
+		
 		return null;
 	}
 	

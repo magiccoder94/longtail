@@ -16,4 +16,8 @@ public class Constant {
 	
 	public static int DEBIT = 1;
 	public static int CREDIT = 2;
+	
+	public static int HOLDING = 0;
+	public static int APPROVE = 1;
+	public static int REJECTED = 2;
 }

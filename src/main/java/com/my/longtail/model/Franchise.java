@@ -47,9 +47,11 @@ public class Franchise {
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 	
-	@JsonIgnore()
-	@ManyToMany(mappedBy = "franchises", cascade = CascadeType.MERGE)
-	private Set<Users> users;
+//	@JsonIgnore()
+//	@ManyToMany(mappedBy = "franchises", cascade = CascadeType.MERGE)
+//	private Set<Users> users;
+	@OneToMany(mappedBy = "primaryKey.franchise")
+	private Set<Users_Franchises> userFranchise;
 	
 	@JsonProperty("createdDate")
 	@Column(name = "created_date", columnDefinition = "DATE", nullable = true)
@@ -76,10 +78,26 @@ public class Franchise {
 	
 //	@Column(name = "join_venture_term", columnDefinition = "")
 //	private String joinVentureTerm;
+	@AttributeOverrides({
+		@AttributeOverride(name = "amount", column = @Column(name = "management_service_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "management_service_currency", columnDefinition = "CHAR(3)", nullable = true))
+	})
+	private Money managementServiceFee;
 	
-//	private String managementServiceFee;
+	@AttributeOverrides({
+		@AttributeOverride(name = "amount", column = @Column(name = "min_investment_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "minimum_investment_currency", columnDefinition = "CHAR(3)", nullable = true))
+	})
+	private Money minimumInvestment;
 	
-//	private String financialReq;
+	@AttributeOverrides({
+		@AttributeOverride(name = "amount", column = @Column(name = "max_investnment_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "max_investnment_currency", columnDefinition = "CHAR(3)", nullable = true))
+	})
+	private Money maximumInvestment;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "offeror_id", nullable = true)
+	private OfferorForm offeror;
 	
 	public Franchise() {}
 	
@@ -94,6 +112,9 @@ public class Franchise {
 		existing.setDateUpdated(new Date());
 		if(!this.getFranchiseLogoImg().isEmpty())
 			existing.setFranchiseLogoImg(this.getFranchiseLogoImg());
+		existing.setManagementServiceFee(this.getManagementServiceFee());
+		existing.setMinimumInvestment(this.getMinimumInvestment());
+		existing.setMaximumInvestment(this.getMaximumInvestment());
 		
 		return existing;
 	}
@@ -146,13 +167,13 @@ public class Franchise {
 		this.category = category;
 	}
 
-	public Set<Users> getUsers() {
-		return users;
-	}
-
-	public void setUsers(Set<Users> users) {
-		this.users = users;
-	}
+//	public Set<Users> getUsers() {
+//		return users;
+//	}
+//
+//	public void setUsers(Set<Users> users) {
+//		this.users = users;
+//	}
 
 	public Date getDateUpdated() {
 		return dateUpdated;
@@ -224,6 +245,38 @@ public class Franchise {
 
 	public void setInvestParticipantNeeded(int investParticipantNeeded) {
 		this.investParticipantNeeded = investParticipantNeeded;
+	}
+
+	public Set<Users_Franchises> getUserFranchise() {
+		return userFranchise;
+	}
+
+	public void setUserFranchise(Set<Users_Franchises> userFranchise) {
+		this.userFranchise = userFranchise;
+	}
+
+	public Money getManagementServiceFee() {
+		return managementServiceFee;
+	}
+
+	public void setManagementServiceFee(Money managementServiceFee) {
+		this.managementServiceFee = managementServiceFee;
+	}
+
+	public Money getMinimumInvestment() {
+		return minimumInvestment;
+	}
+
+	public void setMinimumInvestment(Money minimumInvestment) {
+		this.minimumInvestment = minimumInvestment;
+	}
+
+	public Money getMaximumInvestment() {
+		return maximumInvestment;
+	}
+
+	public void setMaximumInvestment(Money maximumInvestment) {
+		this.maximumInvestment = maximumInvestment;
 	}
 	
 }

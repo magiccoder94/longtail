@@ -56,7 +56,7 @@ public class AdminServiceImplement implements AdminService{
 
 	@Override
 	public List<Franchise> getAllFranchise() {
-		return franchiseRepository.findAllByOrderByDateCreatedAsc();
+		return franchiseRepository.findAllOrderByDateCreatedAsc();
 	}
 
 	@Override

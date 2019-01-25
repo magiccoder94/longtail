@@ -1,16 +1,23 @@
 package com.my.longtail.restcontroller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Currency;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -24,13 +31,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.my.longtail.InvestorService;
 import com.my.longtail.logger.Logger;
 import com.my.longtail.model.ApplicantFormPOJO;
+import com.my.longtail.model.Category;
+import com.my.longtail.model.Country;
 import com.my.longtail.model.EntityType;
 import com.my.longtail.model.Franchise;
 import com.my.longtail.model.FranchiseType;
 import com.my.longtail.model.MaritalStatus;
 import com.my.longtail.model.Money;
 import com.my.longtail.model.SourceFundType;
+import com.my.longtail.model.Transaction;
 import com.my.longtail.property.Property;
+import com.my.longtail.repositories.CategoryRepository;
+import com.my.longtail.repositories.CountryRepository;
+import com.my.longtail.util.UserUtil;
 
 @RestController
 public class InvestorRestController {
@@ -38,66 +51,132 @@ public class InvestorRestController {
 	@Autowired
 	InvestorService investorService;
 	
-	final static String foldername = Property.getWEBPORTAL_FOLDER_NAME();
 	
-//	@RequestMapping(value = "/investcontroller/get_franchise_list", method = RequestMethod.GET)
-//	private List<Franchise> getFranchiseListing() {
-//		return null;
-//	}
 	
-	@RequestMapping(value = "/investorcontroller/top_recommended_franchise_list", method = RequestMethod.GET)
-	private List<Franchise> getTopRecommendedFranchiseListing() {
-		
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		List<Franchise> franchiseList = investorService.getTop5RecommendedFranchiseNByFranchiseType(username);
-		if(franchiseList.isEmpty())
-			throw new IllegalArgumentException("getTopRecommendedFranchiseListing EMPTY");
-		return franchiseList;
-	}
+	@Value("${upload-path}")
+	private String filePath;
 	
-	@RequestMapping(value = "/investorcontroller/top_latest_franchise_list", method = RequestMethod.GET)
-	private List<Franchise> getTopLatestFranchiseListing() {
-
-		List<Franchise> franchiseList = investorService.getRop5LatestFranchise();
-		if(franchiseList.isEmpty())
-			throw new IllegalArgumentException("getTopLatestFranchiseListing EMPTY");
-		return franchiseList;
-	}
-	
-	@RequestMapping(value = "/investorcontroller/top_popular_franchise_list", method = RequestMethod.GET)
-	private List<Franchise> getTopPopularFranchiseListing() {
-		List<Franchise> franchiseList = investorService.getTop5PopularFranchise();
-		if(franchiseList.isEmpty())
-			throw new IllegalArgumentException("getTopLatestFranchiseListing EMPTY");
-		return franchiseList;
-	}
-	
-	@RequestMapping(value = "/investorcontroller/recommended_franchise_list", method = RequestMethod.GET)
-	private List<Franchise> getRecommededFranchiseListing(@PageableDefault(value = 10)Pageable pageable){
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		Page<Franchise> pages = investorService.getAllRecommendedFranchiseType(username, pageable);
-		if(pages.isEmpty())
-			throw new IllegalArgumentException("getRecommededFranchiseListing EMPTY");
-		return pages.getContent();
-	}
-	
-	@RequestMapping(value = "/investorcontroller/latest_franchise_list", method = RequestMethod.GET)
-	private List<Franchise> getPopularFranchiseListing(@PageableDefault(value = 10)Pageable pageable){
-		Page<Franchise> pages = investorService.getAllPopularFranchise(pageable);
-		if(pages.isEmpty())
-			throw new IllegalArgumentException("getPopularFranchiseListing EMPTY");
-		return pages.getContent();
-	}
-	
-	@RequestMapping(value = "/investorcontroller/popular_franchise_list", method = RequestMethod.GET)
-	private List<Franchise> getLatestFranchiseListing(@PageableDefault(value = 10)Pageable pageable){
-		Page<Franchise> pages = investorService.getAllLatestFranchise(pageable);
-		if(pages.isEmpty())
-			throw new IllegalArgumentException("getLatestFranchiseListing EMPTY");
-		return pages.getContent();
-	}
+	final static String foldername = Property.getWEBPORTAL_FOLDER_NAME();	
 	
 	@RequestMapping(value = "/investorcontroller/save_applicant", method = RequestMethod.POST)
+	private String saveApplicantFormData(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
+		JSONObject jObjectResult = new JSONObject();
+		ApplicantFormPOJO formdata = new ApplicantFormPOJO();
+		Transaction transaction = new Transaction();
+		ApplicantFormPOJO savedFormData = null;
+		
+		int indicator = 0;
+		
+		try {
+			JSONObject formfield_main = new JSONObject(formfield);
+			JSONObject jObject = formfield_main.getJSONObject("formfield");
+			
+			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			
+			indicator = jObject.getInt("action_indicator");
+
+			formdata.setAddress(jObject.getString("address"));
+			formdata.setBankDetails(jObject.getString("bank_details"));
+			
+			JSONArray array_category = jObject.getJSONArray("category");
+			Set<Category> categorySet = new HashSet<Category>();
+			for(int i=0; i < array_category.length(); i++) {
+				String id = array_category.getString(i);
+				categorySet.add(investorService.getCategory(Long.parseLong(id)));
+			}
+			formdata.setCategoriesParticpate(categorySet);
+			Country country = investorService.getCountry(Long.parseLong(jObject.getString("country_id")));
+			formdata.setCountryChoice(country);
+			formdata.setGender(jObject.getString("gender"));
+			formdata.setImgPassport(saveImageFile(indicator, jObject.getString("passport64"), 
+					jObject.has("existing_passport") == true ? jObject.getString("existing_passport") : null));
+			formdata.setImgProfilePhoto(saveImageFile(indicator, jObject.getString("profile64"), 
+					jObject.has("existing_profile") == true ? jObject.getString("existing_profile") : null));
+			formdata.setImgProofAddress(saveImageFile(indicator, jObject.getString("address64"), 
+					jObject.has("existing_address") == true ? jObject.getString("existing_address") : null));
+			Money investmentRange = new Money();
+			investmentRange.setAmount(new BigDecimal(jObject.getString("invest_range")));
+			formdata.setInvestmentRange(investmentRange);
+			formdata.setManagementParticipation(jObject.getBoolean("management_participate"));
+			formdata.setNationality(jObject.getString("nationality"));
+			formdata.setParticipantName(jObject.getString("participant_name"));
+			formdata.setPassportNumber(jObject.getString("passport_number"));
+			formdata.setPercentageShareTarget(new BigDecimal(jObject.getString("percentage_share_target")));
+			formdata.setSeekOutPeriod(Integer.parseInt(jObject.getString("seekout_period")));
+			formdata.setTelephoneNumber(jObject.getString("telephone_number"));
+			
+			if(indicator == 1) {
+				formdata.setDateSubmitted(new Date());
+				savedFormData = investorService.saveApplicantForm(formdata, username);
+			}else if(indicator == 2) {
+				formdata.setDateUpdated(new Date());
+				savedFormData = investorService.updateApplicantForm(formdata, username, Long.parseLong(jObject.getString("id")));
+			}
+			
+			if(savedFormData == null)
+				throw new IllegalArgumentException("Fail to save applicant form.");
+			
+//			formdata.setTransaction(transaction);
+			
+//			transaction.setApplicantForm(savedFormData);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private String saveImageFile(int indicator, String base64_img, String existingPath) {
+		boolean checker = false;
+		String imageName = null;
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String uploadPath = filePath;
+		String folderName = null;
+		String[] splitString = base64_img.split(",");
+		byte[] imageBytes = Base64.getDecoder().decode(splitString[1]);
+		
+		try {
+			File checkdir = new File(uploadPath);
+			checkdir.mkdirs();
+		
+			//gen folder name
+			if(existingPath == null || existingPath.equals("")) {
+				
+			}
+			
+			switch(indicator) {
+			case 1:
+				imageName = "passport_photo"+sdf.format(date).toString();
+			case 2:
+				imageName = "profile_photo"+sdf.format(date).toString();
+			case 3:
+				imageName = "address_proof"+sdf.format(date).toString();
+
+			
+			do {
+				File checkFile = new File(uploadPath + imageName);
+				if(checkFile.exists()) {
+					checker = true;
+					//what if name exist
+				}else
+					checker = false;
+			}while(checker);
+		
+			File file = new File(uploadPath, imageName+".png");
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(imageBytes);
+			fos.close();
+		}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	/*@RequestMapping(value = "/investorcontroller/save_applicant", method = RequestMethod.POST)
 	private String saveApplicantFranchiseData(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
 		JSONObject jObjectResult = new JSONObject();
 		ApplicantFormPOJO formData = new ApplicantFormPOJO();
@@ -199,48 +278,6 @@ public class InvestorRestController {
 		}
 		
 		return jObjectResult.toString();
-	}
-	
-	//change
-	@RequestMapping(value = "/investorcontroller/set_interested/{id}", method = RequestMethod.POST)
-	private String setInterestedFranchise(@PathVariable long franchiseId, HttpServletRequest request, HttpServletResponse response) {
-		JSONObject jObjectResult = new JSONObject();
-		try {
-			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			Franchise franchise = investorService.setInterestedFranchise(franchiseId, username);
-			if(franchise == null) {
-				Logger.writeActivity("empty franchise interested", foldername);
-				jObjectResult.put("data", "Please try again later.");
-				return jObjectResult.toString();
-			}
-			jObjectResult.put("data", franchise.getId());
-		}catch(Exception e){
-			e.printStackTrace();
-			Logger.writeError(e, "Exception: ", foldername);
-			return null;
-		}
-		return jObjectResult.toString();
-	}
-	
-	//change
-	@RequestMapping(value = "/investorcontroller/set_uninterested/{id}", method = RequestMethod.POST)
-	private String setUninterestedFranchise(@PathVariable long franchiseId) {
-		JSONObject jObjectResult = new JSONObject();
-		try {
-			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			Franchise franchise = investorService.setUninterestFranchise(franchiseId, username);
-			if(franchise == null) {
-				Logger.writeActivity("empty franchise uninterested", foldername);
-				jObjectResult.put("data", "Please try again later.");
-				return jObjectResult.toString();
-			}
-			jObjectResult.put("data", franchise.getId());
-		}catch(Exception e) {
-			e.printStackTrace();
-			Logger.writeError(e, "Exception: ", foldername);
-			return null;
-		}
-		return jObjectResult.toString();
-	}
+	}*/
 	
 }

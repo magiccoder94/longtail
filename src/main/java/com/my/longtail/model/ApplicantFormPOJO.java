@@ -74,6 +74,23 @@ public class ApplicantFormPOJO {
 	
 	public void merge(ApplicantFormPOJO existing) {
 		existing.setParticipantName(this.getParticipantName());
+		existing.setAddress(this.getAddress());
+		existing.setBankDetails(this.getBankDetails());
+		existing.setCountryChoice(this.getCountryChoice());
+		existing.setCategoriesParticpate(this.getCategoriesParticpate());
+		existing.setGender(this.getGender());
+		if(this.getImgPassport() != null)
+			existing.setImgPassport(this.getImgPassport());
+		if(this.getImgProfilePhoto() != null)
+			existing.setImgProfilePhoto(this.getImgProfilePhoto());
+		if(this.getImgProofAddress() != null)
+			existing.setImgProofAddress(this.getImgProofAddress());
+		existing.setInvestmentRange(this.getInvestmentRange());
+		existing.setManagementParticipation(this.isManagementParticipation());
+		existing.setNationality(this.getNationality());
+		existing.setPercentageShareTarget(this.getPercentageShareTarget());
+		existing.setSeekOutPeriod(this.getSeekOutPeriod());
+		existing.setTelephoneNumber(this.getTelephoneNumber());
 		existing.setPassportNumber(this.getPassportNumber());
 	}
 

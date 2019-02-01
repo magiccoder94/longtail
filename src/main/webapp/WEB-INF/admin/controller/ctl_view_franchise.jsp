@@ -43,17 +43,6 @@
 			$scope.listCategory = response.data;
 		}); 
 		
-		$scope.resetCreateFranchise = function(){
-			$scope.franchise.name = "";
-			$scope.franchise.company_name = "";
-			$scope.franchise.description = "";
-			$scope.franchise.type = 0;
-			$scope.franchise.categoru = 0;
-			
-			document.getElementById("createLogo_img").value = "";
-			document.getElementById("createLogo_imgBase64").value = "";
-		}; 
-		
 		$scope.submitCreateFranchise = function(){
 			if($scope.modalType =='create' && document.getElementById("createLogo_imgBase64").value == null ||
 					$scope.modalType =='create' && document.getElementById("createLogo_imgBase64").value == "" ){
@@ -78,6 +67,19 @@
 					category : $scope.franchise.category,
 					logo_img : $("#createLogo_imgBase64").val(),
 					indicator : ($scope.modalType == 'create' ? 1 : 2)
+					$scope.franchise.criteria_franchise,
+					$scope.franchise.introduction_franchise,
+					$scope.franchise.short_description,
+					$scope.franchise.category,
+					$scope.franchise.type,
+					$scope.franchise.management_participant,
+					$scope.franchise.invest_participant,
+					$scope.franchise.management_service_fee_amount,
+					$scope.franchise.management_service_fee_currency,
+					$scope.franchise.minimum_invest_amount,
+					$scope.franchise.minimum_invest_currency,
+					$scope.franchise.maximum_invest_amount,
+					$scope.franchise.maximum_invest_currency
 				};
 				console.log("postdata "+ JSON.stringify(postdata));
 				
@@ -131,6 +133,8 @@
 					{"data" : "id"},
 					{"data" : "name"},
 					{"data" : "company_name"},
+					{"data" : "date_created"},
+					{"data" : "date_updated"},
 					{"orderable" : false,
 					 "data" : "id",
 					 "render" : function(data){
@@ -146,13 +150,23 @@
 			$('#datable_variant').on('click','tr', function(){
 				$scope.franchise.name = table.row(this).data().name;
 				$scope.franchise.company_name = table.row(this).data().company_name;
+				$scope.franchise.criteria_franchise = table.row(this).data().criteria_franchise;
+				$scope.franchise.introduction_franchise = table.row(this).data().introduction_franchise;
+				$scope.franchise.short_description = table.row(this).data().short_description;
 				$scope.franchise.description = table.row(this).data().description;
 				$scope.franchise.logoImg = table.row(this).data().logo_img;
 				$scope.franchise.category = table.row(this).data().category;
 				$scope.franchise.type = table.row(this).data().type;
+				$scope.franchise.management_participant = table.row(this).data().management_participant;
+				$scope.franchise.invest_participant = table.row(this).data().invest_participant;
+				$scope.franchise.management_service_fee_amount = table.row(this).data().management_service_fee_amount;
+				$scope.franchise.management_service_fee_currency = table.row(this).data().management_service_fee_currency;
+				$scope.franchise.minimum_invest_amount = table.row(this).data().minimum_invest_amount;
+				$scope.franchise.minimum_invest_currency = table.row(this).data().minimum_invest_currency;
+				$scope.franchise.maximum_invest_amount = table.row(this).data().maximum_invest_amount;
+				$scope.franchise.maximum_invest_currency = table.row(this).data().maximum_invest_currency;
 				
-				$compile(franchiseType)($scope);
-				$compule(categoryFranchise)($scope);
+				$compile(franchiseType, categoryFranchise)($scope);
 				
 				$('#updateDbImg').attr("src", "${pageContext.request.contextPath}"+table.row(this).data().logoImg);
 				
@@ -170,6 +184,26 @@
 				$('#create_franchise_modal').modal('show');
 			};
 			
+		}; 
+		
+		$scope.resetCreateFranchise = function(){
+			$scope.franchise.name = "";
+			$scope.franchise.company_name = "";
+			$scope.franchise.criteria_franchise = "";
+			$scope.franchise.introduction_franchise = "";
+			$scope.franchise.short_description = "";
+			$scope.franchise.description = "";
+			$scope.franchise.type = 0;
+			$scope.franchise.category = 0;
+			$scope.franchise.management_participant = 0;
+			$scope.franchise.invest_participant = 0;
+			$scope.franchise.management_service_fee_amount = "";
+			$scope.franchise.management_service_fee_currency = "";
+			$scope.franchise.minimum_invest_amount = "";
+			$scope.franchise.maximum_invest_amount = "";
+			
+			document.getElementById("createLogo_img").value = "";
+			document.getElementById("createLogo_imgBase64").value = "";
 		}; 
 		
 		$scope.removeFranchise = function(id){

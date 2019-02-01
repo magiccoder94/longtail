@@ -36,5 +36,5 @@ public interface FranchiseRepository extends JpaRepository<Franchise, Long>{
 	
 	
 	List<Franchise> findAllOrderByDateCreatedAsc();
-	
+	List<Franchise> findAllByFranchiseStatus(FranchiseStatus franchiseStatus);
 }

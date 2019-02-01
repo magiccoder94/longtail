@@ -6,6 +6,10 @@ import javax.persistence.*;
 @Table(name = "roles")
 public class Role {
 	
+	public static final String ROLE_MANAGEMEN = "ROLE_MANAGEMENT";
+	
+	public static final String ROLE_INVESTOR = "ROLE_INVESTOR";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")

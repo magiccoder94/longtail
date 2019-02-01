@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 
 @Embeddable
@@ -21,8 +23,9 @@ public class Users_ApplicantForms implements Serializable{
 	@ManyToOne(cascade = CascadeType.ALL)
 	private ApplicantFormPOJO applicantForm;
 	
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "applicant_status", columnDefinition = "INT", nullable = true)
-	private int applicantStatus;
+	private ApplicantStatus applicantStatus;
 
 	public Users getUser() {
 		return user;
@@ -40,11 +43,11 @@ public class Users_ApplicantForms implements Serializable{
 		this.applicantForm = applicantForm;
 	}
 
-	public int getApplicantStatus() {
+	public ApplicantStatus getApplicantStatus() {
 		return applicantStatus;
 	}
 
-	public void setApplicantStatus(int applicantStatus) {
+	public void setApplicantStatus(ApplicantStatus applicantStatus) {
 		this.applicantStatus = applicantStatus;
 	}
 	

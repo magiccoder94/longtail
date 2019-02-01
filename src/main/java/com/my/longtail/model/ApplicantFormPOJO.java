@@ -69,6 +69,8 @@ public class ApplicantFormPOJO {
 	@Column(name = "date_updated", columnDefinition = "DATE", nullable = true)
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date dateUpdated;
+	@OneToMany(mappedBy = "primaryKey.applicantForm")
+	private Set<Users_ApplicantForms> userApplicantForm;
 	
 	public ApplicantFormPOJO() {}
 	

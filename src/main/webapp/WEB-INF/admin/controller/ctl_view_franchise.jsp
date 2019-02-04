@@ -67,19 +67,20 @@
 					category : $scope.franchise.category,
 					logo_img : $("#createLogo_imgBase64").val(),
 					indicator : ($scope.modalType == 'create' ? 1 : 2)
-					$scope.franchise.criteria_franchise,
-					$scope.franchise.introduction_franchise,
-					$scope.franchise.short_description,
-					$scope.franchise.category,
-					$scope.franchise.type,
-					$scope.franchise.management_participant,
-					$scope.franchise.invest_participant,
-					$scope.franchise.management_service_fee_amount,
-					$scope.franchise.management_service_fee_currency,
-					$scope.franchise.minimum_invest_amount,
-					$scope.franchise.minimum_invest_currency,
-					$scope.franchise.maximum_invest_amount,
-					$scope.franchise.maximum_invest_currency
+					criteria : $scope.franchise.criteria_franchise,
+					introduction : $scope.franchise.introduction_franchise,
+					short_description : $scope.franchise.short_description,
+					description_package : $scope.franchise.description_package,
+					category_id : $scope.franchise.category,
+					type : $scope.franchise.type,
+					management_participant : $scope.franchise.management_participant,
+					invest_participant : $scope.franchise.invest_participant,
+					management_fee : $scope.franchise.management_service_fee_amount,
+					management_currency : $scope.franchise.management_service_fee_currency,
+					min_invest_amount : $scope.franchise.minimum_invest_amount,
+					min_invest_currency : $scope.franchise.minimum_invest_currency,
+					max_invest_amount : $scope.franchise.maximum_invest_amount,
+					max_invest_currency : $scope.franchise.maximum_invest_currency
 				};
 				console.log("postdata "+ JSON.stringify(postdata));
 				

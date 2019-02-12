@@ -62,6 +62,14 @@ public class InvestorController {
 		return modelView;
 	}
 	
+	@RequestMapping(value = "/register_account", method = RequestMethod.GET)
+	public ModelAndView getRegisterForm() {
+		System.out.println("get register");
+		ModelAndView model = new ModelAndView();
+		model.setViewName("Investor/views/view_registration_form");
+		return model;
+	}
+	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView getInvestorHomePage(OAuth2AuthenticationToken authentication) {
 		System.out.println("home");

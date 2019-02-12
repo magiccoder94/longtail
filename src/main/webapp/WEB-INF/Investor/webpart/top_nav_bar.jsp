@@ -43,6 +43,7 @@
 .img-resize-nav {
 	width: 70%;
 }
+
 .header-section {
     background-image: url(https://www.bitcoin.com/wp-content/themes/betheme-child/images/getting-started.jpg);
     background-repeat: no-repeat;
@@ -90,15 +91,6 @@
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=0.65">
 <body>
-	<!-- Header -->
-	<div class="header-section">
-          <div class="container-1">     
-              <div>
-                <h2 class="header-h2">LongTail helping you getting started with your investment</h2> 
-                <h1 class="h1-1">Get Started with us. Register now.</h1> 
-            </div>
-          </div>
-        </div>
 	<header class="header">
 		<div class="header_content d-flex flex-row align-items-center justify-content-start">
 			

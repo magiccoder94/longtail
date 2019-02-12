@@ -1,20 +1,18 @@
 <html>
 <head>
 	<style>
-	.form-section {
-		padding-left: 15px;
-		border-left: 2px solid #FF851B;
-		display: none;
-	}
-	.form-section.current {
-		display: inherit;
+	label{
+		font-weight: bold;
+		color: black;
 	}
 	</style>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=0.65">
 
 <body>
-	<div class="container" style="margin-top: 20%;">
+<div class="column one column_divider "><hr class="no_line" style="margin: 0 auto 100px;"></div>
+<div class="column one column_divider "><hr class="no_line" style="margin: 0 auto 50px;"></div>
+	<div class="container">
 		<div class="col-12 col-sm-12">
 			<div class="card mb-3">
 				<div class="card-header">

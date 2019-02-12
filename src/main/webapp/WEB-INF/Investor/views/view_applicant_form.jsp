@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
 	<style>
 	.form-section {
@@ -9,13 +9,25 @@
 	.form-section.current {
 		display: inherit;
 	}
+	label{
+		font-weight: bold;
+		color: black;
+	}
+	span{
+		font-weight: bold;
+		color: black;
+	}
+	.one.column {
+    	width: 98%;
+	}
 	</style>
 </head>
 
 <meta name="viewport" content="width=device-width, initial-scale=0.65">
-
 <body ng-controller="ctl_view_applicant_form">
-	<div class="container" style="margin-top: 20%;">
+<div class="column one column_divider "><hr class="no_line" style="margin: 0 auto 100px;"></div>
+<div class="column one column_divider "><hr class="no_line" style="margin: 0 auto 50px;"></div>
+	<div class="container">
 		<div class="col-12 col-sm-12">
 			<div class="card mb-3">
 				<div class="card-header">
@@ -66,25 +78,26 @@
 									<input type="text" class="form-control" ng-model="applicant.telephone_number"/>
 								</div>
 							</div>
+							<br/>
 							<div class="row">
 								<div class="col-12 col-sm-12 form-group">
 									<label for="bankDetail">Upload Bank Details:</label>
-									<input type="file" class="custom-file-input" id="imgBankDetail"/>
+									<input type="file" class="file-input" id="imgBankDetail"/>
 									<input type="hidden" class="form-control" id="imgBankDetail64"/>
 								</div>
 								<div class="col-12 col-sm-12 form-group">
 									<label for="profilePhoto">Upload Profile Photo:</label>
-									<input type="file" class="custom-file-input" id="imgProfile"/>
+									<input type="file" class="file-input" id="imgProfile"/>
 									<input type="hidden" class="form-control" id="imgProfile64"/>
 								</div>
 								<div class="col-12 col-sm-12 form-group">
 									<label for="passportImg">Upload Passport:</label>
-									<input type="file" class="custom-file-input" id="passPortImg"/>
+									<input type="file" class="file-input" id="passPortImg"/>
 									<input type="hidden" class="form-control" id="passPortImg64"/>
 								</div>
 								<div class="col-12 col-sm-12 form-group">
 									<label for="addressImg">Upload Address Detail:</label>
-									<input type="file" class="custom-file-input" id="addressImg"/>
+									<input type="file" class="file-input" id="addressImg"/>
 									<input type="hidden" class="form-control" id="addressImg64"/>
 								</div>
 								<!-- include multi select from CRM corp -->
@@ -99,8 +112,8 @@
 									<input type="hidden" class="form-control"/>
 								</div>
 								<div class="col-6 col-sm-6 form-group">
-									<label for="percentageTarget">Percentage Share Target:</label>
-									<input type="number" class="form-control" ng-model="applicant.percentage_share_target"/> %
+									<label for="percentageTarget">Percentage Share Target (%):</label>
+									<input type="number" class="form-control" ng-model="applicant.percentage_share_target"/>
 								</div>
 							</div>
 							<div class="row">
@@ -148,9 +161,9 @@
 						</div>
 						<br/><br/>
 						<div class="form-navigation">
-							<button type="button" class="previous btn btn-info pull-left">&lt; Previous</button>
-							<button type="button" class="next btn btn-info pull-right">Next &gt;</button>
-							<input type="submit" class="btn btn-primary" id="submitButton" value="Submit"/>
+							<button type="button" class="previous btn btn-info pull-left">Previous</button>
+							<button type="button" class="next btn btn-info pull-right">Next</button>
+							<input type="submit" class="btn btn-primary pull-right" id="submitButton" value="Submit"/>
 							<span class="clearfix"></span>
 						</div>
 					</form>

@@ -43,11 +43,93 @@
 .img-resize-nav {
 	width: 70%;
 }
+.header-section {
+    background-image: url(https://www.bitcoin.com/wp-content/themes/betheme-child/images/getting-started.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-position: 0% 60%;
+    background-attachment: fixed;
+}
+
+.container-1 {
+    width: 90%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1300px;
+}
+
+.header-h2 {
+    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #fab915;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    display: inline-block;
+    padding-bottom: 20px;
+    margin: 0;
+    line-height: 1.2em !important;
+}
+
+.h1-1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    font-weight: 700;
+    color: #fff;
+    margin: 25px 0 0px;
+    padding: 0;
+    line-height: 1.2em !important;
+}
 </style>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=0.65">
 <body>
-	<nav id="navBar" class="navbar navbar-expand navbar-dark fixed-top bg-dark">
+	<!-- Header -->
+	<div class="header-section">
+          <div class="container-1">     
+              <div>
+                <h2 class="header-h2">LongTail helping you getting started with your investment</h2> 
+                <h1 class="h1-1">Get Started with us. Register now.</h1> 
+            </div>
+          </div>
+        </div>
+	<header class="header">
+		<div class="header_content d-flex flex-row align-items-center justify-content-start">
+			
+			<!-- Logo -->
+			<div class="logo">
+				<a href="#">
+					<span>long<span>tail</span></span>
+					<span></span>
+				</a>
+			</div>
+
+			<!-- Main Navigation -->
+			<nav class="main_nav">
+				<ul class="d-flex flex-row align-items-center justify-content-start">
+					<li class="active"><a href="#!">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="#!register_applicant">Participate</a></li>
+				</ul>
+			</nav>
+
+			<div class="header_right ml-auto d-flex flex-row align-items-center justify-content-start">
+				<div class="log_reg">
+					<ul class="d-flex flex-row align-items-start justify-content-start">
+						<li><a href="#!login">Login</a></li>
+						<li><a href="#!register_account">Register</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<%-- <nav id="navBar" class="navbar navbar-expand navbar-dark fixed-top bg-dark">
 		<div class="container" id="navbarSupportedContent">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">LongTail</a>
@@ -60,7 +142,7 @@
 						</a>
 	      			</li>
 	      			<li class="nav-item">
-	      				<a class="nav-link" href="#!investment">
+	      				<a class="nav-link" href="#!register_account">
 	      					<img class="img-resize-nav" src="${pageContext.request.contextPath}/assets/images/Picture2.png"/>
 	      				</a>
 	      			</li>
@@ -79,30 +161,12 @@
 	      			</li>
       			</ul>
 			</div>
-			<%-- <ul class="navbar-nav mr-auto">
-				<li class="nav-item active">
-        			<a class="nav-link" href="#">LongTail <span class="sr-only">(current)</span></a>
-     			</li>
-      			<li class="nav-item">
-        			<a class="nav-link" href="#!register_applicant">Fill in Applicant Form</a>
-      			</li>
-      			<li class="nav-item">
-      				<img src="${pageContext.request.contextPath}/assets/images/briefcase.png"/>
-      				<a class="nav-link" href="#!investment">Investor Page</a>
-      			</li>
-      			<li class="navbar-brand mr-auto">
-      				<form action="${pageContext.request.contextPath}/investor/logout" method="post">
-						<input type="image" src="${pageContext.request.contextPath}/assets/images/exit.png" value="Sign Out"/>
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-					</form>
-      			</li>
-			</ul> --%>
 		</div>
-	</nav>
+	</nav> --%>
 </body>
 <script>
 	//Store navbar classes
-	var navClasses = document.getElementById('navBar').classList;
+	/* var navClasses = document.getElementById('navBar').classList;
 	var scrollState = 0;
 	function downAction() {
 	  navClasses.remove('open');
@@ -138,6 +202,6 @@
 	
 	window.addEventListener("scroll", function() {
 		  scrollDetect(scrollHome, downAction, upAction);
-	});
+	}); */
 </script>
 </html>

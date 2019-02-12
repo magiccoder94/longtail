@@ -33,8 +33,9 @@ public class Users implements Serializable {
 	@NotEmpty(message = "*Missing email")
 	private String email;
 	
-	@Column(name = "country", columnDefinition = "VARCHAR(60)", nullable = true)
-	private String country;
+	@ManyToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name = "country_id", nullable = true)
+	private Country country;
 	
 	@Column(name = "provider", columnDefinition = "VARCHAR(20)", nullable = true)
 	private String provider;
@@ -46,10 +47,10 @@ public class Users implements Serializable {
 //	@JoinTable(name = "users_franchises_set", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "franchise_id"))
 //	private Set<Franchise> franchises;
 	
-	@OneToMany(mappedBy = "primaryKey.user")
+	@OneToMany(mappedBy = "user")
 	private Set<Users_Franchises> userFranchise;
 	
-	@OneToMany(mappedBy = "primaryKey.user")
+	@OneToMany(mappedBy = "user")
 	private Set<Users_ApplicantForms> userApplicantForm;
 	
 	@Enumerated(EnumType.ORDINAL)
@@ -98,13 +99,21 @@ public class Users implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getCountry() {
+	
+	public Country getCountry() {
 		return country;
 	}
 
-	public void setCountry(String country) {
+	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	public Set<Users_ApplicantForms> getUserApplicantForm() {
+		return userApplicantForm;
+	}
+
+	public void setUserApplicantForm(Set<Users_ApplicantForms> userApplicantForm) {
+		this.userApplicantForm = userApplicantForm;
 	}
 
 	public String getProvider() {

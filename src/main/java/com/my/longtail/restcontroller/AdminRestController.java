@@ -24,6 +24,7 @@ import com.my.longtail.model.Category;
 import com.my.longtail.model.Franchise;
 import com.my.longtail.model.FranchiseType;
 import com.my.longtail.model.Money;
+import com.my.longtail.model.OfferorForm;
 import com.my.longtail.property.Property;
 import com.my.longtail.util.UserUtil;
 
@@ -227,5 +228,16 @@ public class AdminRestController {
 	@RequestMapping(value = "/get_franchise_with_participant", method = RequestMethod.GET)
 	public String getFranchiseWithParticipant() {
 		return null;
+	}
+	
+	@RequestMapping(value = "/save_offeror_form", method = RequestMethod.POST)
+	private String saveOfferor(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
+		OfferorForm offeror = null;
+		
+		offeror = adminService.saveOfferor(formfield);
+		if(offeror == null)
+			return "Fail to save offeror form information.";
+		
+		return "Information Successfully Saved.";
 	}
 }

@@ -35,6 +35,6 @@ public interface FranchiseRepository extends JpaRepository<Franchise, Long>{
 //	Page<Franchise> findAllByCategory_IdOrderByInvestorInterestedDesc(long categoryId, Pageable pageable);
 	
 	
-	List<Franchise> findAllOrderByDateCreatedAsc();
+	List<Franchise> findAllByOrderByDateCreatedAsc();
 	List<Franchise> findAllByFranchiseStatus(FranchiseStatus franchiseStatus);
 }

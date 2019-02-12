@@ -64,7 +64,7 @@ public class InvestorController {
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public ModelAndView getInvestorHomePage(OAuth2AuthenticationToken authentication) {
-		System.out.println("fuck");
+		System.out.println("home");
 		ModelAndView model = new ModelAndView();
 		model.setViewName("/Investor/investor_home");
 		return model;
@@ -78,6 +78,13 @@ public class InvestorController {
 		return model;
 	}
 	
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public ModelAndView getIndexPage() {
+		System.out.println("servicing index page");
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/Investor/views/view_home");
+		return model;
+	}
 //	@RequestMapping(value = "/view_franchise/{id}")
 //	public ModelAndView getFranchiseView(@PathVariable int franchiseId) {
 //		ModelAndView model = new ModelAndView();

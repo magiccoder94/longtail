@@ -73,15 +73,15 @@
 			var postdata = {
 				id : ($scope.applicant.formType=='create' ? undefined : $scope.form_id),
 				address : $scope.applicant.address,
-				bank_details : $scope.applicant.bank_details,
+				bank_details : $('#imgBankDetail64').val(),
 				category : $scope.applicant.category,
 				country_id : $scope.applicant.country,
 				gender : $scope.applicant.gender,
-				passport64 : $scope.applicant.passport,
+				passport64 : $('#passPortImg64').val(),
 				existing_passport : $scope.applicant.existing_passport,
-				profile64 : $scope.applicant.profile,
-				existing_profile : %scope.applicant.existing_profile,
-				address64 : $scope.applicant.address64,
+				profile64 : $('#imgProfile64').val(),
+				existing_profile : $scope.applicant.existing_profile,
+				address64 : $('#addressImg64').val(),
 				existing_address : $scope.applicant.existing_address,
 				invest_range : $scope.applicant.invest_range,
 				invest_range_currency : $scope.applicant.invest_range_currency,
@@ -91,7 +91,7 @@
 				passport_number : $scope.applicant.passport_number,
 				percentage_share_target : $scope.applicant.percentage_share_target,
 				seekout_period : $scope.applicant.seekout_period,
-				telephone_number : $scope.applicant.telephone_number
+				telephone_number : $scope.applicant.telephone_number,
 				indicator : ($scope.applicant.formType=='create' ? 1 : 2)
 			};
 			

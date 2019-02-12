@@ -2,8 +2,11 @@ package com.my.longtail;
 
 import java.util.List;
 
+import org.codehaus.jettison.json.JSONObject;
+
 import com.my.longtail.model.Category;
 import com.my.longtail.model.Franchise;
+import com.my.longtail.model.OfferorForm;
 
 public interface AdminService {
 	Franchise saveFranchise(Franchise franchise);
@@ -12,4 +15,5 @@ public interface AdminService {
 	List<Franchise> getAllFranchise();
 	List<Category> getAllCategories();
 	Category getCategory(long categoryId);
+	OfferorForm saveOfferor(String formfield);
 }

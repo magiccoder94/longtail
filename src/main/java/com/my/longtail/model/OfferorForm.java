@@ -3,6 +3,8 @@ package com.my.longtail.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,8 +54,11 @@ public class OfferorForm {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "country_id", nullable = false)
 	private Country country;
-	@Column(name = "full_amount_offering", columnDefinition = "VARCHAR(50)", nullable = true)
-	private String fullAmountOffering;
+	@AttributeOverrides({
+		@AttributeOverride(name = "amount", column = @Column(name = "full_amount_offering_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "currencyCode", column = @Column(name = "full_amount_offering_currency", columnDefinition = "CHAR(3)", nullable = true))
+	})
+	private Money fullAmountOffering;
 	@JsonProperty("date_submitted")
 	@Column(name = "date_submitted", columnDefinition = "DATE", nullable = true)
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -184,11 +189,11 @@ public class OfferorForm {
 		this.country = country;
 	}
 
-	public String getFullAmountOffering() {
+	public Money getFullAmountOffering() {
 		return fullAmountOffering;
 	}
 
-	public void setFullAmountOffering(String fullAmountOffering) {
+	public void setFullAmountOffering(Money fullAmountOffering) {
 		this.fullAmountOffering = fullAmountOffering;
 	}
 

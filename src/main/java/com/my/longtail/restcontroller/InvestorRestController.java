@@ -2,6 +2,7 @@ package com.my.longtail.restcontroller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.my.longtail.InvestorService;
 import com.my.longtail.logger.Logger;
+import com.my.longtail.model.AccountType;
 import com.my.longtail.model.ApplicantFormPOJO;
 import com.my.longtail.model.Category;
 import com.my.longtail.model.Country;
@@ -40,6 +42,7 @@ import com.my.longtail.model.MaritalStatus;
 import com.my.longtail.model.Money;
 import com.my.longtail.model.SourceFundType;
 import com.my.longtail.model.Transaction;
+import com.my.longtail.model.Users;
 import com.my.longtail.property.Property;
 import com.my.longtail.repositories.CategoryRepository;
 import com.my.longtail.repositories.CountryRepository;
@@ -51,7 +54,8 @@ public class InvestorRestController {
 	@Autowired
 	InvestorService investorService;
 	
-	
+	@Autowired
+	CountryRepository countryRepository;
 	
 	@Value("${upload-path}")
 	private String filePath;
@@ -176,6 +180,71 @@ public class InvestorRestController {
 		return null;
 	}
 	
+	@RequestMapping(value = "/investorcontroller/register", method = RequestMethod.POST)
+	private String registerInvestor(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
+		Users newUser = new Users();
+		
+		try {
+			JSONObject formfield_main = new JSONObject(formfield);
+			JSONObject jObject = formfield_main.getJSONObject("formfield");
+			
+			newUser.setAccountType(AccountType.INVESTOR);
+			Country country = countryRepository.getOne(Long.valueOf(jObject.getString("country")));
+			newUser.setCountry(country);
+			newUser.setEmail(jObject.getString("email"));
+			newUser.setFirstName(jObject.getString("first_name"));
+			newUser.setLastName(jObject.getString("last_name"));
+			newUser.setPassword(jObject.getString("password"));
+			newUser.setProfile_image(saveImageFile(jObject.getString("profile_img"), null));
+			newUser.setProvider(jObject.getString("provider"));
+			newUser.setUsername(jObject.getString("username"));
+			
+			newUser = investorService.registerUser(newUser);
+			if(newUser == null)
+				return "Registration Failed. Please Try Again Later.";
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private String saveImageFile(String base64_img, String existing) {
+		boolean checker = false;
+		String imageName = UserUtil.randomString(8);
+		String uploadPath = filePath;
+		String[] splitString = base64_img.split(",");
+		byte[] imageBytes = Base64.getDecoder().decode(splitString[1]);
+
+		try {
+			File checkdir = new File(uploadPath);
+			checkdir.mkdirs();
+			
+			if (existing != null) {
+				File tempfile = new File(uploadPath + existing);
+				tempfile.delete();
+			}
+	
+			do {
+				File checkFile = new File(uploadPath + imageName);
+				if (checkFile.exists()) {
+					checker = true;
+					imageName = UserUtil.randomString(8);
+				} else {
+					checker = false;
+				}
+			} while (checker);
+
+			File file = new File(uploadPath, imageName + ".png");
+			FileOutputStream fos = new FileOutputStream(file);
+			fos.write(imageBytes);
+			fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return imageName + ".png";
+	}
 	/*@RequestMapping(value = "/investorcontroller/save_applicant", method = RequestMethod.POST)
 	private String saveApplicantFranchiseData(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
 		JSONObject jObjectResult = new JSONObject();

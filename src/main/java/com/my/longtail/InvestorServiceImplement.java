@@ -140,6 +140,11 @@ public class InvestorServiceImplement implements InvestorService{
 		return null;
 	}
 
+	@Override
+	public Users registerUser(Users user) {
+		return userRepository.save(user);
+	}
+
 	
 	
 }

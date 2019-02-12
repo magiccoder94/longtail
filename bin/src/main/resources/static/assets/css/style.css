@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'mazdafont';
+    src:
+            url('fonts/InterstateMazda-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'mazdafontregular';
+    src:
+            url('fonts/InterstateMazda-Regular.ttf');
+}
+
+.font-mazda {
+    font-family: mazdafont;
+}
+
+.font-mazda-regular {
+    font-family: mazdafontregular;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.fa-star-half {
+    text-shadow: 2px 2px 4px #000
+}
+
+.my_font_size {
+    font-size : 9pt;
+}
+
+.star_font_size {
+    font-size : 6pt;
+}
+
+.social_media_font_size {
+    font-size: 25pt;
+}

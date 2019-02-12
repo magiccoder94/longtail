@@ -4,7 +4,15 @@
   <!-- Bootstrap 4 --> 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- template lib -->
+	<link rel="stylesheet" type="text/css" href="/sample/template_sample/plugins/OwlCarousel2-2.3.4/owl.carousel.css">
+	<link rel="stylesheet" type="text/css" href="/sample/template_sample/plugins/OwlCarousel2-2.3.4/owl.theme.default.css">
+	<link rel="stylesheet" type="text/css" href="/sample/template_sample/plugins/OwlCarousel2-2.3.4/animate.css">
+	<link href="/sample/template_sample/plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="/sample/template_sample/styles/main_styles.css">
+	<link rel="stylesheet" type="text/css" href="/sample/template_sample/styles/responsive.css">
+  <!-- end -->
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
@@ -35,6 +43,8 @@
   <script src="${pageContext.request.contextPath}/sample/Admin/assets/plugins/parsleyjs/parsley.min.js"></script>
   
   <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+  
+ 
 </head>
 <body>
 	<div class="wrapper">
@@ -49,20 +59,24 @@
 var app = angular.module("myApp", [ "ngRoute"]);
 	app.config(function($routeProvider) {
 		$routeProvider
-			/* .when("/",{
-				templateUrl : "${pageContext.request.contextPath}/investor/home"
-			}) */
+		    .when("/",{
+				templateUrl : "${pageContext.request.contextPath}/investor/index",
+			})
 			.when("/register_applicant", {
 				templateUrl : "${pageContext.request.contextPath}/investor/register",
 				controller : "ctl_view_applicant_form"
 			})
-			.when("/investment", {
+			.when("/register_account", {
+				templateUrl : "${pageContext.request.contextPath}/investor/register_account",
+				controller : "ctl_view_registration_form"
+			})
+			/* .when("/investment", {
 				templateUrl : "${pageContext.request.contextPath}/investor/invest",
 				controller : "ctl_view_investment"
-			})
-			.when("/franchise", {
+			}) */
+			/* .when("/franchise", {
 				templateUrl : "${pageContext.request.contextPath}/investor/view_franchise"
-			})
+			}) */
 			/* .when("/view_franchise/:franchiseId", {
 				templateUrl : function(params){
 					return '${pageContext.request.contextPath}/investor/view_franchise/'+params.franchiseId;
@@ -74,4 +88,5 @@ var app = angular.module("myApp", [ "ngRoute"]);
 
 <jsp:include page="/WEB-INF/Investor/controller/ctl_view_applicant_form.jsp" />
 <jsp:include page="/WEB-INF/Investor/controller/ctl_view_investment.jsp" />
+<jsp:include page="/WEB-INF/Investor/controller/ctl_view_registration_form.jsp"/>
 </html>

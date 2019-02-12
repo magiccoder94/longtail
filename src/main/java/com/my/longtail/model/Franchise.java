@@ -50,7 +50,7 @@ public class Franchise {
 //	@JsonIgnore()
 //	@ManyToMany(mappedBy = "franchises", cascade = CascadeType.MERGE)
 //	private Set<Users> users;
-	@OneToMany(mappedBy = "primaryKey.franchise")
+	@OneToMany(mappedBy = "franchise")
 	private Set<Users_Franchises> userFranchise;
 	
 	@JsonProperty("createdDate")

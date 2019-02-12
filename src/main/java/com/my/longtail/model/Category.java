@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -16,6 +18,8 @@ public class Category {
 	@Column(name = "name", nullable = true)
 	private String name;
 	
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categoriesParticpate", cascade = CascadeType.MERGE)
 	private Set<ApplicantFormPOJO> applicantForm;
 
 	public Category() {

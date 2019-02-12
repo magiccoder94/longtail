@@ -11,6 +11,7 @@ import com.my.longtail.model.Category;
 import com.my.longtail.model.Country;
 import com.my.longtail.model.Franchise;
 import com.my.longtail.model.Transaction;
+import com.my.longtail.model.Users;
 
 public interface InvestorService {
 //	Franchise setInterestedFranchise(long franchiseId, String username);
@@ -29,4 +30,5 @@ public interface InvestorService {
 	Category getCategory(long id);
 	//fix deposit amount?
 	Transaction peformTransaction(String username, ApplicantFormPOJO savedFormData);
+	Users registerUser(Users user); 
 }

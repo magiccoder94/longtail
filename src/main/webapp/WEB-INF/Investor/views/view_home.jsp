@@ -58,28 +58,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="col-12 col-sm-12">
-			<div class="card-group">
-				<div class="card border-primary mb-3">
-					<div class="card-body text-center">
-						<img src="/assets/images/Picture2.png"/>
-						<p>this is card number one</p>
-					</div>
-				</div>
-				<div class="card border-primary mb-3">
-					<div class="card-body text-center">
-						<img src="/assets/images/Picture3.png"/>
-						<p>this is card number two</p>
-					</div>
-				</div>
-				<div class="card border-primary mb-3">
-					<div class="card-body text-center">
-						<img src="/assets/images/Picture3.png"/>
-						<p>this is card number three</p>
-					</div>
-				</div>
-			</div>
-		</div> -->
 	</div>
 	<div class="column one column_divider "><hr class="no_line" style="margin: 0 auto 50px;"></div>
 	<div class="row">

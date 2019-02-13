@@ -11,7 +11,7 @@ public class Role {
 	public static final String ROLE_INVESTOR = "ROLE_INVESTOR";
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	

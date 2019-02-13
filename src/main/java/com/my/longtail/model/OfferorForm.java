@@ -25,8 +25,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "offeror_form_data")
 public class OfferorForm {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private long id;
 	@Column(name = "offeror_name", columnDefinition = "VARCHAR(50)", nullable = false)
 	private String offerorName;
@@ -55,7 +55,7 @@ public class OfferorForm {
 	@JoinColumn(name = "country_id", nullable = false)
 	private Country country;
 	@AttributeOverrides({
-		@AttributeOverride(name = "amount", column = @Column(name = "full_amount_offering_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "amount", column = @Column(name = "full_amount_offering_amount", columnDefinition = "DECIMAL(24,4)", nullable = true)),
 		@AttributeOverride(name = "currencyCode", column = @Column(name = "full_amount_offering_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money fullAmountOffering;

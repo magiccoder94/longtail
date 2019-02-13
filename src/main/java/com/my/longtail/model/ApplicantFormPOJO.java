@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "participant_form_data")
 public class ApplicantFormPOJO {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	@Column(name = "participant_name", columnDefinition = "VARCHAR(50)", nullable = false)
@@ -48,11 +48,11 @@ public class ApplicantFormPOJO {
 	private Country countryChoice;
 	@JsonProperty("investment_range")
 	@AttributeOverrides({
-		@AttributeOverride(name = "amount", column = @Column(name = "invest_range_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "amount", column = @Column(name = "invest_range_amount", columnDefinition = "DECIMAL(24,4)", nullable = true)),
 		@AttributeOverride(name = "currencyCode", column = @Column(name = "invest_range_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money investmentRange;
-	@Column(name = "percentage_share_target", columnDefinition = "NUMERIC(24,4)", nullable = true)
+	@Column(name = "percentage_share_target", columnDefinition = "DECIMAL(24,4)", nullable = true)
 	private BigDecimal percentageShareTarget;
 	@Column(name = "management_participation", columnDefinition = "BIT", nullable = true)
 	private boolean managementParticipation;

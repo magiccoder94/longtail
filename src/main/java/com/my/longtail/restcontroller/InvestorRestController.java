@@ -49,6 +49,7 @@ import com.my.longtail.repositories.CountryRepository;
 import com.my.longtail.util.UserUtil;
 
 @RestController
+@RequestMapping(value = "/investcontroller")
 public class InvestorRestController {
 
 	@Autowired
@@ -62,7 +63,7 @@ public class InvestorRestController {
 	
 	final static String foldername = Property.getWEBPORTAL_FOLDER_NAME();	
 	
-	@RequestMapping(value = "/investorcontroller/save_applicant", method = RequestMethod.POST)
+	@RequestMapping(value = "/save_applicant", method = RequestMethod.POST)
 	private String saveApplicantFormData(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
 		JSONObject jObjectResult = new JSONObject();
 		ApplicantFormPOJO formdata = new ApplicantFormPOJO();
@@ -180,7 +181,7 @@ public class InvestorRestController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/investorcontroller/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	private String registerInvestor(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
 		Users newUser = new Users();
 		
@@ -208,6 +209,31 @@ public class InvestorRestController {
 		}
 		
 		return null;
+	}
+	
+	@RequestMapping(value = "/get_country_list", method = RequestMethod.GET)
+	public String getCountryList(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("getting country list");
+		JSONObject jObjectResult = new JSONObject();
+		JSONArray JARY = new JSONArray();
+		JSONObject content = null;
+		try {
+			List<Country> countries = countryRepository.findAll();
+			
+			for(Country country : countries) {
+				content = new JSONObject();
+				content.put("id", country.getId());
+				content.put("name", country.getName());
+				content.put("currency_code", country.getCurrency());
+				JARY.put(content);
+			}
+			jObjectResult.put("data", JARY);
+		}catch(Exception e) {
+			//logger here
+			e.printStackTrace();
+		}
+		System.out.println("result "+ jObjectResult.toString());
+		return jObjectResult.toString();
 	}
 	
 	private String saveImageFile(String base64_img, String existing) {
@@ -245,6 +271,8 @@ public class InvestorRestController {
 		}
 		return imageName + ".png";
 	}
+	
+	
 	/*@RequestMapping(value = "/investorcontroller/save_applicant", method = RequestMethod.POST)
 	private String saveApplicantFranchiseData(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
 		JSONObject jObjectResult = new JSONObject();

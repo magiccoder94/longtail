@@ -67,13 +67,24 @@
 			  navigateTo(0); // Start at the beginning
 		});
 		
+		$http.get("${pageContext.request.contextPath}/investcontroller/get_country_list")
+		.then(function(response){
+			if(response.status == "403"){
+				alert("Session TIME OUT");
+				$(location).attr('href', '${pageContext.request.contextPath}/home')
+			} else {
+				$scope.listCountry = response.data;
+			}
+		});
+		
 		$scope.submitSaveApplicant = function(){
 			$('#submitButton').attr("disabled", true);
 			//category should be made into JSONArray
 			var postdata = {
 				id : ($scope.applicant.formType=='create' ? undefined : $scope.form_id),
 				address : $scope.applicant.address,
-				bank_details : $('#imgBankDetail64').val(),
+				bank_details : $scope.applicant.bank_details,
+				seek_out : $scope.applicant.seekout_period,
 				category : $scope.applicant.category,
 				country_id : $scope.applicant.country,
 				gender : $scope.applicant.gender,
@@ -108,6 +119,45 @@
 				
 			})
 		}
+		
+		$('input[type=file]').change(function(event) {
+			var element = event.target.id;
+			var reader = new FileReader();
+			var _URL = window.URL || window.webkitURL;
+			var file = this.files[0];
+			var check = fileCheck(file, element);
+			if (check == false) {
+				return false;
+			}
+			reader.readAsDataURL(file);
+			reader.onload = function() {
+				if (element === "passPortImg")
+					$('#passPortImg64').val(reader.result);
+				if (element === "addressImg")
+					$('#addressImg64').val(reader.result);
+				if (element === "imgProfile")
+					$('#imgProfile64').val(reader.result);
+			}
+			reader.onerror = function(error) {
+			}
+		});
+		
+		function fileCheck(file, elementName) {
+			var img;
+			if (file.type.indexOf("image") == -1) {
+				alert("Invalid image file.");
+				$('#' + elementName).wrap('<form>').closest('form').get(0).reset();
+				$('#' + elementName).unwrap();
+				return false;
+			}
+			
+			if (file.size > 50000) {
+				alert("Image file must not exceed 50kb.");
+				$('#' + elementName).wrap('<form>').closest('form').get(0).reset();
+				$('#' + elementName).unwrap();
+				return false;
+			}
+		};
 	});
 </script>
 </html>

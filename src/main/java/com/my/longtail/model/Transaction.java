@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Transaction {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	
@@ -43,7 +43,7 @@ public class Transaction {
 	private String message;
 	
 	@AttributeOverrides({
-		@AttributeOverride(name = "amount", column = @Column(name = "transaction_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "amount", column = @Column(name = "transaction_amount", columnDefinition = "DECIMAL(24,4)", nullable = true)),
 		@AttributeOverride(name = "currencyCode", column = @Column(name = "transaction_amount_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money transactionAmount;

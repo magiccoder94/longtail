@@ -78,24 +78,29 @@
 									<input type="text" class="form-control" ng-model="applicant.telephone_number"/>
 								</div>
 							</div>
+							<div class="row">
+								<span>We require your bank details for refund purposes.</span>
+								<div class="col-12 col-sm-12 form-group">
+									<label for="bankDetail">Bank Account Number:</label>
+									<textarea class="form-control" ng-model="applicant.bank_details" rows="3"></textarea>
+								</div>
+							</div>
 							<br/>
 							<div class="row">
 								<div class="col-12 col-sm-12 form-group">
-									<label for="bankDetail">Upload Bank Details:</label>
-									<input type="file" class="file-input" id="imgBankDetail"/>
-									<input type="hidden" class="form-control" id="imgBankDetail64"/>
-								</div>
-								<div class="col-12 col-sm-12 form-group">
+									<span>Please include a profile photo not older than 3 months</span>
 									<label for="profilePhoto">Upload Profile Photo:</label>
 									<input type="file" class="file-input" id="imgProfile"/>
 									<input type="hidden" class="form-control" id="imgProfile64"/>
-								</div>
+								</div><br/>
 								<div class="col-12 col-sm-12 form-group">
-									<label for="passportImg">Upload Passport:</label>
+									<label for="passportImg">Upload IC/Passport:</label>
 									<input type="file" class="file-input" id="passPortImg"/>
 									<input type="hidden" class="form-control" id="passPortImg64"/>
-								</div>
+								</div><br/>
 								<div class="col-12 col-sm-12 form-group">
+									<span>Please include a photo of your utility bill or bank statement as </span>
+									<span>proof of address</span>
 									<label for="addressImg">Upload Address Detail:</label>
 									<input type="file" class="file-input" id="addressImg"/>
 									<input type="hidden" class="form-control" id="addressImg64"/>
@@ -117,6 +122,15 @@
 								</div>
 							</div>
 							<div class="row">
+								<div class="col-6 col-sm-6 form-group">
+									<label>Please specify seek out period:</label>
+									<select class="form-control" ng-change="seekOutChange()" ng-model="applicant.seekout_period">
+										<option value=6>6 Months</option>
+										<option value=9>9 Months</option>
+										<option value=12>12 Months</option>
+										<option value=24>24 Months</option>
+									</select>
+								</div>
 								<div class="col-6 col-sm-6 form-group">
 									<input type="checkbox" name="management" ng-model="applicant.management_participate"/> Participate as Management
 								</div>

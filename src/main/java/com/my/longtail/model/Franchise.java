@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Franchise {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long id;
 	
@@ -79,19 +79,19 @@ public class Franchise {
 //	@Column(name = "join_venture_term", columnDefinition = "")
 //	private String joinVentureTerm;
 	@AttributeOverrides({
-		@AttributeOverride(name = "amount", column = @Column(name = "management_service_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "amount", column = @Column(name = "management_service_amount", columnDefinition = "DECIMAL(24,4)", nullable = true)),
 		@AttributeOverride(name = "currencyCode", column = @Column(name = "management_service_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money managementServiceFee;
 	
 	@AttributeOverrides({
-		@AttributeOverride(name = "amount", column = @Column(name = "min_investment_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "amount", column = @Column(name = "min_investment_amount", columnDefinition = "DECIMAL(24,4)", nullable = true)),
 		@AttributeOverride(name = "currencyCode", column = @Column(name = "minimum_investment_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money minimumInvestment;
 	
 	@AttributeOverrides({
-		@AttributeOverride(name = "amount", column = @Column(name = "max_investnment_amount", columnDefinition = "NUMERIC(24,4)", nullable = true)),
+		@AttributeOverride(name = "amount", column = @Column(name = "max_investnment_amount", columnDefinition = "DECIMAL(24,4)", nullable = true)),
 		@AttributeOverride(name = "currencyCode", column = @Column(name = "max_investnment_currency", columnDefinition = "CHAR(3)", nullable = true))
 	})
 	private Money maximumInvestment;

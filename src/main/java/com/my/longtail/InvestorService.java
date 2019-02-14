@@ -31,4 +31,5 @@ public interface InvestorService {
 	//fix deposit amount?
 	Transaction peformTransaction(String username, ApplicantFormPOJO savedFormData);
 	Users registerUser(Users user); 
+	Users checkRegisteredEmail(String email);
 }

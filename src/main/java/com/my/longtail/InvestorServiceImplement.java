@@ -145,6 +145,11 @@ public class InvestorServiceImplement implements InvestorService{
 		return userRepository.save(user);
 	}
 
+	@Override
+	public Users checkRegisteredEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
 	
 	
 }

@@ -46,6 +46,7 @@ import com.my.longtail.model.Users;
 import com.my.longtail.property.Property;
 import com.my.longtail.repositories.CategoryRepository;
 import com.my.longtail.repositories.CountryRepository;
+import com.my.longtail.util.BackendSequenceUtil;
 import com.my.longtail.util.UserUtil;
 
 @RestController
@@ -57,6 +58,9 @@ public class InvestorRestController {
 	
 	@Autowired
 	CountryRepository countryRepository;
+	
+	@Autowired
+	BackendSequenceUtil backendSequenceUtil;
 	
 	@Value("${upload-path}")
 	private String filePath;
@@ -196,8 +200,8 @@ public class InvestorRestController {
 			newUser.setFirstName(jObject.getString("first_name"));
 			newUser.setLastName(jObject.getString("last_name"));
 			newUser.setPassword(jObject.getString("password"));
-			newUser.setProfile_image(saveImageFile(jObject.getString("profile_img"), null));
-			newUser.setProvider(jObject.getString("provider"));
+			newUser.setProfile_image(backendSequenceUtil.saveImageFile("profile", jObject.getString("profile_img"), null, jObject.getString("email")));
+//			newUser.setProvider(jObject.getString("provider"));
 			newUser.setUsername(jObject.getString("username"));
 			
 			newUser = investorService.registerUser(newUser);
@@ -235,43 +239,6 @@ public class InvestorRestController {
 		System.out.println("result "+ jObjectResult.toString());
 		return jObjectResult.toString();
 	}
-	
-	private String saveImageFile(String base64_img, String existing) {
-		boolean checker = false;
-		String imageName = UserUtil.randomString(8);
-		String uploadPath = filePath;
-		String[] splitString = base64_img.split(",");
-		byte[] imageBytes = Base64.getDecoder().decode(splitString[1]);
-
-		try {
-			File checkdir = new File(uploadPath);
-			checkdir.mkdirs();
-			
-			if (existing != null) {
-				File tempfile = new File(uploadPath + existing);
-				tempfile.delete();
-			}
-	
-			do {
-				File checkFile = new File(uploadPath + imageName);
-				if (checkFile.exists()) {
-					checker = true;
-					imageName = UserUtil.randomString(8);
-				} else {
-					checker = false;
-				}
-			} while (checker);
-
-			File file = new File(uploadPath, imageName + ".png");
-			FileOutputStream fos = new FileOutputStream(file);
-			fos.write(imageBytes);
-			fos.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return imageName + ".png";
-	}
-	
 	
 	/*@RequestMapping(value = "/investorcontroller/save_applicant", method = RequestMethod.POST)
 	private String saveApplicantFranchiseData(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {

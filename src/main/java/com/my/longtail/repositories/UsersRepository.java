@@ -11,6 +11,7 @@ import com.my.longtail.model.Users;
 @Repository("usersRepository")
 public interface UsersRepository extends JpaRepository<Users, Long>{
 	Users findByUsername(String username); 
+	Users findByEmail(String email);
 	//order by date submitted
 	List<Users> findByUserApplicantForm_ApplicantStatusOrderByUserApplicantForm_ApplicantForm_DateSubmitted(ApplicantStatus applicantStatus);
 }

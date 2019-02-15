@@ -150,6 +150,11 @@ public class InvestorServiceImplement implements InvestorService{
 		return userRepository.findByEmail(email);
 	}
 
+	@Override
+	public Users getUser(String username) {
+		return userRepository.findByUsername(username);
+	}
+
 	
 	
 }

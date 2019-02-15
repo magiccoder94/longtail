@@ -32,4 +32,5 @@ public interface InvestorService {
 	Transaction peformTransaction(String username, ApplicantFormPOJO savedFormData);
 	Users registerUser(Users user); 
 	Users checkRegisteredEmail(String email);
+	Users getUser(String username);
 }

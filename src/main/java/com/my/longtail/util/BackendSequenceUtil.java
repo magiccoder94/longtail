@@ -75,12 +75,12 @@ public class BackendSequenceUtil {
 			checkdir.mkdirs();
 
 			if (existing != null) {
-				File tempfile = new File(uploadPath + existing);
+				File tempfile = new File(uploadPath + "//" + foldername + "//" + existing);
 				tempfile.delete();
 			}
 
 			do {
-				File checkFile = new File(uploadPath + imageName);
+				File checkFile = new File(uploadPath + "//" + foldername + "//" + imageName);
 				if (checkFile.exists()) {
 					checker = true;
 					imageName = createUniqueBackendId(image_prefix);
@@ -89,7 +89,7 @@ public class BackendSequenceUtil {
 				}
 			} while (checker);
 
-			File file = new File(uploadPath, imageName + ".png");
+			File file = new File(uploadPath + "//" + foldername + "//", imageName + ".png");
 			FileOutputStream fos = new FileOutputStream(file);
 			fos.write(imageBytes);
 			fos.close();

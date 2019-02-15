@@ -81,6 +81,7 @@ public class InvestorRestController {
 			JSONObject jObject = formfield_main.getJSONObject("formfield");
 			
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			Users user = investorService.getUser(username);
 			
 			indicator = jObject.getInt("action_indicator");
 
@@ -97,12 +98,12 @@ public class InvestorRestController {
 			Country country = investorService.getCountry(Long.parseLong(jObject.getString("country_id")));
 			formdata.setCountryChoice(country);
 			formdata.setGender(jObject.getString("gender"));
-			formdata.setImgPassport(saveImageFile(indicator, jObject.getString("passport64"), 
-					jObject.has("existing_passport") == true ? jObject.getString("existing_passport") : null));
-			formdata.setImgProfilePhoto(saveImageFile(indicator, jObject.getString("profile64"), 
-					jObject.has("existing_profile") == true ? jObject.getString("existing_profile") : null));
-			formdata.setImgProofAddress(saveImageFile(indicator, jObject.getString("address64"), 
-					jObject.has("existing_address") == true ? jObject.getString("existing_address") : null));
+			formdata.setImgPassport(backendSequenceUtil.saveImageFile("passport", jObject.getString("passport64"), 
+					jObject.has("existing_passport") == true ? jObject.getString("existing_passport") : null, user.getEmail()));
+			formdata.setImgProfilePhoto(backendSequenceUtil.saveImageFile("profile", jObject.getString("profile64"), 
+					jObject.has("existing_profile") == true ? jObject.getString("existing_profile") : null, user.getEmail()));
+			formdata.setImgProofAddress(backendSequenceUtil.saveImageFile("address_proof", jObject.getString("address64"), 
+					jObject.has("existing_address") == true ? jObject.getString("existing_address") : null, user.getEmail()));
 			Money investmentRange = new Money();
 			investmentRange.setAmount(new BigDecimal(jObject.getString("invest_range")));
 			formdata.setInvestmentRange(investmentRange);
@@ -135,56 +136,6 @@ public class InvestorRestController {
 		return null;
 	}
 	
-	private String saveImageFile(int indicator, String base64_img, String existingPath) {
-		boolean checker = false;
-		String imageName = null;
-		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String uploadPath = filePath;
-		String folderName = null;
-		String[] splitString = base64_img.split(",");
-		byte[] imageBytes = Base64.getDecoder().decode(splitString[1]);
-		
-		try {
-			File checkdir = new File(uploadPath);
-			checkdir.mkdirs();
-		
-			//gen folder name
-			if(existingPath == null || existingPath.equals("")) {
-				
-			}
-			
-			switch(indicator) {
-			case 1:
-				imageName = "passport_photo"+sdf.format(date).toString();
-			case 2:
-				imageName = "profile_photo"+sdf.format(date).toString();
-			case 3:
-				imageName = "address_proof"+sdf.format(date).toString();
-
-			
-			do {
-				File checkFile = new File(uploadPath + imageName);
-				if(checkFile.exists()) {
-					checker = true;
-					//what if name exist
-				}else
-					checker = false;
-			}while(checker);
-		
-			File file = new File(uploadPath, imageName+".png");
-			FileOutputStream fos = new FileOutputStream(file);
-			fos.write(imageBytes);
-			fos.close();
-		}
-
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return null;
-	}
-	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	private String registerInvestor(@RequestBody String formfield, HttpServletRequest request, HttpServletResponse response) {
 		Users newUser = new Users();
@@ -192,6 +143,8 @@ public class InvestorRestController {
 		try {
 			JSONObject formfield_main = new JSONObject(formfield);
 			JSONObject jObject = formfield_main.getJSONObject("formfield");
+			
+			
 			
 			newUser.setAccountType(AccountType.INVESTOR);
 			Country country = countryRepository.getOne(Long.valueOf(jObject.getString("country")));
